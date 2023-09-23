@@ -23,9 +23,19 @@ def homepage():
 
 @app.route('/create_tables')
 def create_tables():
-    with app.app_context():
-        db.create_all()
-    return 'Database tables created successfully!'
+    return render_template('create_table.html')
+
+@app.route('/table_created', methods = ["POST"])
+def table_created():
+    if request.method == "POST":
+        passwd = request.form.get("passwd")
+        if passwd==app.config['SECRET_KEY']:
+            with app.app_context():
+                db.create_all()
+            return 'Database tables created successfully!'
+        else:
+            return 'Wrong Password'
+    return render_template('create_table.html')
 
 if __name__ == '__main__':
     app.run()
