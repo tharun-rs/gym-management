@@ -14,12 +14,13 @@ from datetime import datetime
 #---------------------------------------------------Default objects creation----------------------------------------------------------------#
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gym.db'
-app.config["SECRET_KEY"] = "HAHAIDK"
 
 db = SQLAlchemy(app)
 ph = PasswordHasher()
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+app.config["SECRET_KEY"] = ph.hash("triggervarning")
 
 @login_manager.user_loader
 def loader_user(user_id):
@@ -31,12 +32,12 @@ def loader_user(user_id):
 
 #----------------------------------------------------------Classes--------------------------------------------------------------------------#
 class Members(db.Model,UserMixin):
-    id = db.Column(db.Integer, primary_key = True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100))
     phone_number = db.Column(db.String(15))  
-    email = db.Column(db.String(100),nullable=False)
+    email = db.Column(db.String(100), nullable=False)
     member_since = db.Column(db.DateTime)
-    password = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     
     def __init__(self, name, phone_number, email, password, member_since):
         self.name = name
@@ -48,36 +49,46 @@ class Members(db.Model,UserMixin):
 
 
 
+class Trainers(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100))
+    phone_number = db.Column(db.String(15))
+    email = db.Column(db.String(100), nullable=False)
+    experience = db.Column(db.String(100))
+    trainer_since = db.Column(db.DateTime)
+    password = db.Column(db.String(128), nullable=False)
+
+    def __init__(self, name, phone_number, email, password, experience, trainer_since):
+        self.name = name
+        self.phone_number = phone_number
+        self.email = email
+        self.trainer_since = trainer_since
+        self.experience = experience
+        self.password = ph.hash(password)
 
 
-#---------------------------------------------------------Routing---------------------------------------------------------------------------#
+
+
+class Admin(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100))
+    phone_number = db.Column(db.String(15))
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+
+    def __init__(self, name, phone_number, email, password):
+        self.name = name
+        self.phone_number = phone_number
+        self.email = email
+        self.password = ph.hash(password)
+
+
+
+#--------------------------------------------------------Routing Member----------------------------------------------------------------------#
 #home page
 @app.route('/')
 def homepage():
     return render_template('index.html', app_name='BulkBois', description='For the GymBros')
-
-#developement testing
-@app.route('/temp')
-def temp():
-    all_records = Members.query.all()
-    s=""
-    for i,record in enumerate(all_records):
-        s+=str(i)+str(record.__dict__)+'\n\t\t\t\t\t\t\t\t'
-    return s
-
-#create tables for db
-@app.route('/create_tables', methods=["POST","GET"])
-def create_tables():
-    if request.method == "POST":
-        passwd = request.form.get("passwd")
-        if passwd==app.config['SECRET_KEY']:
-            with app.app_context():
-                db.create_all()
-            return 'Database tables created successfully!'
-        else:
-            return 'Wrong Password'
-    return render_template('create_table.html')
-
 
 #Member registration
 @app.route('/register', methods=["GET", "POST"])
@@ -151,10 +162,67 @@ def logout():
     return redirect(url_for("homepage"))
 
 
+#-------------------------------------------------------Routing Trainer----------------------------------------------------------------------#
+
+#-------------------------------------------------------Routing Admin------------------------------------------------------------------------#
+#developement testing
+@app.route('/temp')
+def temp():
+    all_records = Members.query.all()
+    s=""
+    for i,record in enumerate(all_records):
+        s+=str(i)+str(record.__dict__)+'\n\t\t\t\t\t\t\t\t'
+    return s
+
+#create tables for db
+@app.route('/create_tables', methods=["POST","GET"])
+def create_tables():
+    if request.method == "POST":
+        passwd = request.form.get("passwd")
+        if ph.verify(app.config['SECRET_KEY'],passwd):
+            with app.app_context():
+                db.create_all()
+            return 'Database tables created successfully!'
+        else:
+            return 'Wrong Password'
+    return render_template('dev_tools.html',tool_id=0)
+
+
+#create admin
+@app.route('/create_admin', methods=["POST","GET"])
+def create_admin():
+    if request.method == "POST":
+        # Get form data
+        name = request.form.get("name")
+        phone_number = request.form.get("phone_number")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        dev_pass = request.form.get("dev_password")
+        # Check if a user with the same email already exists
+        existing_admin = Admin.query.filter_by(email=email).first()
+
+        if existing_admin:
+            return render_template("register.html",message_id=1)
+        elif ph.verify(app.secret_key,dev_pass):
+
+            # Create a new member
+            admin = Admin(
+                name=name,
+                phone_number=phone_number,
+                email=email,
+                password=password,
+            )
+
+            db.session.add(admin)
+            db.session.commit()
+            return "created admin"
+        else:
+            return "error"
+    return render_template('dev_tools.html',tool_id=1)
 
 
 
-#---------------------------------------------------------------Run Flask-------------------------------------------------------------------#
+#---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':
     app.run()
 

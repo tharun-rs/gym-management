@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {%if tool_id==0%}
+    <form action="{{ url_for('create_tables')}}" method="post">
+        <label for="password">Password:</label>
+        <input type="password" id="passwd" name="passwd">
+        <button type="submit">Login</button>
+    </form>
+    {%elif tool_id==1%}
+    <form action="{{url_for('create_admin')}}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number"><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+    {%if message_id%}
+        <p style="color: brown;">Email already registered</p>
+    {%endif%}
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br>
+        <label for="dev_password">Developer Password:</label>
+        <input type="password" name="dev_password" required><br>
+        <button type="submit">Submit</button>
+    </form>
+    {%endif%}
+</body>
+
+</html>
