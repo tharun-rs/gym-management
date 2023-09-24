@@ -137,14 +137,18 @@ def login():
 #user dashboard
 @app.route("/dashboard")
 def dashboard():
-     return current_user.email
+     try:
+        member = current_user
+        return member.email
+     except Exception:
+         return "Not Logged in"
 
 
 #user logout
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for("/"))
+    return redirect(url_for("homepage"))
 
 
 
