@@ -1,8 +1,9 @@
-####Import modules
+#--------------------------------------------------------Import Libraries------------------------------------------------------------------#
 from flask import Flask, request, flash, url_for, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user
-from flask_bcrypt import Bcrypt
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
 from datetime import datetime 
 
 
@@ -10,13 +11,13 @@ from datetime import datetime
 
 
 
-####Default objects creation####
+#---------------------------------------------------Default objects creation----------------------------------------------------------------#
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gym.db'
 app.config["SECRET_KEY"] = "HAHAIDK"
 
 db = SQLAlchemy(app)
-bcrypt = Bcrypt()
+ph = PasswordHasher()
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -28,55 +29,45 @@ def loader_user(user_id):
 
 
 
-####Classes####
-class Members(db.Model):
+#----------------------------------------------------------Classes--------------------------------------------------------------------------#
+class Members(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     name = db.Column(db.String(100))
-    city = db.Column(db.String(50))
-    address = db.Column(db.String(200))  
-    pin = db.Column(db.String(10))
     phone_number = db.Column(db.String(15))  
     email = db.Column(db.String(100),nullable=False)
-    date_of_birth = db.Column(db.Date)
     member_since = db.Column(db.DateTime)
     password = db.Column(db.String(60), nullable=False)
     
-    def __init__(self, name="", city="", address="", pin="", phone_number="", email="", password="", date_of_birth="", member_since=""):
+    def __init__(self, name, phone_number, email, password, member_since):
         self.name = name
-        self.city = city
-        self.address = address
-        self.pin = pin
         self.phone_number = phone_number
         self.email = email
-        self.date_of_birth = date_of_birth
         self.member_since = member_since
-        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        self.password = ph.hash(password)
 
 
 
 
 
 
-####Routing####
+#---------------------------------------------------------Routing---------------------------------------------------------------------------#
+#home page
 @app.route('/')
 def homepage():
     return render_template('index.html', app_name='BulkBois', description='For the GymBros')
 
+#developement testing
 @app.route('/temp')
 def temp():
     all_records = Members.query.all()
     s=""
-    for record in all_records:
-        s+=str(record.__dict__)
+    for i,record in enumerate(all_records):
+        s+=str(i)+str(record.__dict__)+'\n\t\t\t\t\t\t\t\t'
     return s
 
-
-@app.route('/create_tables')
+#create tables for db
+@app.route('/create_tables', methods=["POST","GET"])
 def create_tables():
-    return render_template('create_table.html')
-
-@app.route('/table_created', methods = ["POST"])
-def table_created():
     if request.method == "POST":
         passwd = request.form.get("passwd")
         if passwd==app.config['SECRET_KEY']:
@@ -87,65 +78,79 @@ def table_created():
             return 'Wrong Password'
     return render_template('create_table.html')
 
+
+#Member registration
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         # Get form data
         name = request.form.get("name")
-        city = request.form.get("city")
-        address = request.form.get("address")
-        pin = request.form.get("pin")
         phone_number = request.form.get("phone_number")
         email = request.form.get("email")
         password = request.form.get("password")
+        # Check if a user with the same email already exists
+        existing_member = Members.query.filter_by(email=email).first()
 
-        # Convert date strings to date objects
-        date_of_birth_str = request.form.get("date_of_birth")
-        date_of_birth = datetime.strptime(date_of_birth_str, '%Y-%m-%d').date()
-        
-        # Set the "member_since" date to the current date
-        member_since = datetime.now()
+        if existing_member:
+            return render_template("register.html",message_id=1)
+        else:
+            # Set the "member_since" date to the current date
+            member_since = datetime.now()
 
-        # Create a new member
-        member = Members(
-            name=name,
-            city=city,
-            address=address,
-            pin=pin,
-            phone_number=phone_number,
-            email=email,
-            password=password,
-            date_of_birth=date_of_birth,
-            member_since=member_since
-        )
+            # Create a new member
+            member = Members(
+                name=name,
+                phone_number=phone_number,
+                email=email,
+                password=password,
+                member_since=member_since
+            )
 
-        db.session.add(member)
-        db.session.commit()
-        return redirect(url_for("login"))
+            db.session.add(member)
+            db.session.commit()
+            return redirect(url_for("login"))
     
-    return render_template("register.html")
+    return render_template("register.html",message_id=0)
 
 
+
+#Member login
 @app.route("/login", methods=["GET", "POST"])
 def login():
-	if request.method == "POST":
-		member = Members.query.filter_by(
-			username=request.form.get("username")).first()
-		if member.password == request.form.get("password"):
-			login_user(member)
-			return redirect(url_for("dashboard"))
-	return render_template("login.html")
+    if request.method == "POST":
+        member = Members.query.filter_by(email=request.form.get("email")).first()
+        password = request.form.get("password")
+        try:
+            if member and ph.verify(member.password, password):
+                # The entered password matches the stored hashed password
+                login_user(member)
+                print("login")
+                return redirect(url_for("dashboard"))
+        except VerifyMismatchError:
+            # Password doesn't match or user not found
+            print("wrong pass")
+            return render_template("login.html", message="Invalid email or password")
+
+
+    return render_template("login.html")
+
+#user dashboard
+@app.route("/dashboard")
+def dashboard():
+     return current_user.email
+
+
+#user logout
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("/"))
 
 
 
 
 
-
-
-
-
-
-
+#---------------------------------------------------------------Run Flask-------------------------------------------------------------------#
 if __name__ == '__main__':
     app.run()
 
