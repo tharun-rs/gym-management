@@ -23,8 +23,18 @@ login_manager.init_app(app)
 app.config["SECRET_KEY"] = ph.hash("triggervarning")
 
 @login_manager.user_loader
-def loader_user(user_id):
-    return Members.query.get(user_id)
+def load_user(user_id):
+    # Check if the user is an admin
+    admin = Admin.query.get(user_id)
+    # If the user is not an admin, check if they are a regular member
+    if admin is None:
+        member = Members.query.get(user_id)
+        # If the user is not a regular member, check if they are a trainer
+        if member is None:
+            trainer = Trainers.query.get(user_id)
+            return trainer  # Return the trainer user if found
+        return member  # Return the regular member user if found
+    return admin  # Return the admin user if found
 
 
 
@@ -32,7 +42,7 @@ def loader_user(user_id):
 
 #----------------------------------------------------------Classes--------------------------------------------------------------------------#
 class Members(db.Model,UserMixin):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
     phone_number = db.Column(db.String(15))  
     email = db.Column(db.String(100), nullable=False)
@@ -40,17 +50,22 @@ class Members(db.Model,UserMixin):
     password = db.Column(db.String(128), nullable=False)
     
     def __init__(self, name, phone_number, email, password, member_since):
+        last_mem = Members.query.order_by(Members.id.desc()).first()
         self.name = name
         self.phone_number = phone_number
         self.email = email
         self.member_since = member_since
         self.password = ph.hash(password)
+        last_id=0
+        if last_mem:
+            last_id = int(last_mem[3:])
+        self.id = f"mem{last_id+1}" 
 
 
 
 
 class Trainers(db.Model,UserMixin):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
     phone_number = db.Column(db.String(15))
     email = db.Column(db.String(100), nullable=False)
@@ -59,28 +74,38 @@ class Trainers(db.Model,UserMixin):
     password = db.Column(db.String(128), nullable=False)
 
     def __init__(self, name, phone_number, email, password, experience, trainer_since):
+        last_train = Trainers.query.order_by(Trainers.id.desc()).first()
         self.name = name
         self.phone_number = phone_number
         self.email = email
         self.trainer_since = trainer_since
         self.experience = experience
         self.password = ph.hash(password)
+        last_id=0
+        if last_train:
+            last_id = int(last_train[3:])
+        self.id = f"tra{last_id+1}"
 
 
 
 
 class Admin(db.Model,UserMixin):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id   = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
     phone_number = db.Column(db.String(15))
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(128), nullable=False)
 
     def __init__(self, name, phone_number, email, password):
+        last_adm = Admin.query.order_by(Admin.id    .desc()).first()
         self.name = name
         self.phone_number = phone_number
         self.email = email
         self.password = ph.hash(password)
+        last_id=0
+        if last_adm:
+            last_id = int(last_adm[3:])
+        self.id  = f"adm{last_id+1}"
 
 
 
@@ -141,8 +166,6 @@ def login():
             # Password doesn't match or user not found
             print("wrong pass")
             return render_template("login.html", message="Invalid email or password")
-
-
     return render_template("login.html")
 
 #user dashboard
@@ -152,7 +175,7 @@ def dashboard():
         member = current_user
         return member.email
      except Exception:
-         return "Not Logged in"
+         return redirect(url_for("login"))
 
 
 #user logout
@@ -175,7 +198,7 @@ def temp():
     return s
 
 #create tables for db
-@app.route('/create_tables', methods=["POST","GET"])
+@app.route('/admin/create_tables', methods=["POST","GET"])
 def create_tables():
     if request.method == "POST":
         passwd = request.form.get("passwd")
@@ -189,7 +212,7 @@ def create_tables():
 
 
 #create admin
-@app.route('/create_admin', methods=["POST","GET"])
+@app.route('/admin/create_admin', methods=["POST","GET"])
 def create_admin():
     if request.method == "POST":
         # Get form data
@@ -221,6 +244,39 @@ def create_admin():
     return render_template('dev_tools.html',tool_id=1)
 
 
+
+#Admin login
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        member = Members.query.filter_by(email=request.form.get("email")).first()
+        password = request.form.get("password")
+        try:
+            if member and ph.verify(member.password, password):
+                # The entered password matches the stored hashed password
+                login_user(member)
+                print("login")
+                return redirect(url_for("admin_panel"))
+        except VerifyMismatchError:
+            # Password doesn't match or user not found
+            print("wrong pass")
+            return render_template("login.html", message="Invalid email or password")
+    return render_template("login.html")
+
+
+
+@app.route('/admin/panel')
+def admin_panel():
+    if current_user:
+        admin = current_user
+        return admin.email
+    else:
+        return redirect(url_for("admin_login"))
+
+
+@app.route('/admin/hire_trainer')
+def hire_trainer():
+    return
 
 #---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':

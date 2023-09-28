@@ -1,0 +1,16 @@
+This file is just for my reference, and isn't used anywhere
+
+Normal Member:
+/
+/register
+/login
+/dashboard
+/logout
+
+Trainer:
+
+Admin:
+/temp
+/admin/create_tables
+/admin/create_admin
+/admin/login
