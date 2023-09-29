@@ -274,9 +274,12 @@ def admin_panel():
         return redirect(url_for("admin_login"))
 
 
-@app.route('/admin/hire_trainer')
+@app.route('/admin/hire_trainer', methods=["GET","POST"])
 def hire_trainer():
-    return
+    if request.method=="POST":
+        
+        return
+    return render_template('/admin/hiretrainer.html')
 
 #---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':
