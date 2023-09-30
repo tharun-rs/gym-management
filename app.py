@@ -1,4 +1,7 @@
 #--------------------------------------------------------Import Libraries------------------------------------------------------------------#
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="sqlalchemy")
+
 from flask import Flask, request, flash, url_for, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
@@ -12,6 +15,7 @@ from datetime import datetime
 
 
 #---------------------------------------------------Default objects creation----------------------------------------------------------------#
+#region
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gym.db'
 
@@ -35,12 +39,10 @@ def load_user(user_id):
             return trainer  # Return the trainer user if found
         return member  # Return the regular member user if found
     return admin  # Return the admin user if found
-
-
-
-
+#endregion
 
 #----------------------------------------------------------Classes--------------------------------------------------------------------------#
+#region
 class Members(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
@@ -48,6 +50,7 @@ class Members(db.Model,UserMixin):
     email = db.Column(db.String(100), nullable=False)
     member_since = db.Column(db.DateTime)
     password = db.Column(db.String(128), nullable=False)
+    trainer = db.Column(db.String(10))
     
     def __init__(self, name, phone_number, email, password, member_since):
         last_mem = Members.query.order_by(Members.id.desc()).first()
@@ -59,10 +62,12 @@ class Members(db.Model,UserMixin):
         last_id=0
         if last_mem:
             last_id = int(last_mem[3:])
-        self.id = f"mem{last_id+1}" 
+        self.id = f"mem{last_id+1}"
 
-
-
+    def assign_trainer(self,trainer_id):
+        self.trainer = trainer_id
+        db.session.add(self)
+        db.session.commit()
 
 class Trainers(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
@@ -86,9 +91,6 @@ class Trainers(db.Model,UserMixin):
             last_id = int(last_train[3:])
         self.id = f"tra{last_id+1}"
 
-
-
-
 class Admin(db.Model,UserMixin):
     id   = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
@@ -106,10 +108,10 @@ class Admin(db.Model,UserMixin):
         if last_adm:
             last_id = int(last_adm[3:])
         self.id  = f"adm{last_id+1}"
-
-
+#endregion
 
 #--------------------------------------------------------Routing Member----------------------------------------------------------------------#
+#region
 #home page
 @app.route('/')
 def homepage():
@@ -180,7 +182,7 @@ def dashboard():
     member = current_user
     if isinstance(member,Members):
         return member.email
-    return redirect(url_for("login"))
+    return redirect(url_for("login"))   
 
 
 #user logout
@@ -190,10 +192,10 @@ def logout():
     if isinstance(member,Members):
         logout_user()
         return redirect(url_for("homepage"))
-
+#endregion
 
 #-------------------------------------------------------Routing Trainer----------------------------------------------------------------------#
-
+#region
 #trainer login
 @app.route("/trainer/login", methods=["GET", "POST"])
 def trainer_login():
@@ -235,10 +237,11 @@ def trainer_logout():
         logout_user()
         return redirect(url_for("homepage"))
 
-
+#endregion
 
 
 #-------------------------------------------------------Routing Admin------------------------------------------------------------------------#
+#region
 #developement testing
 @app.route('/temp')
 def temp():
@@ -366,41 +369,8 @@ def admin_logout():
         logout_user()
         return redirect(url_for("homepage"))
 
-
-
-
-
-
-
-
-
-
+#endregion
 
 #---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':
     app.run()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
