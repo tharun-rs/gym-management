@@ -12,12 +12,6 @@
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Create account</a></li>
-        </ul>
-    </nav>
     <h1>Create an account</h1>
     <form action="/admin/hire_trainer" method="post">
         <label for="name">Name:</label>
@@ -26,6 +20,9 @@
         <label for="phone_number">Phone Number:</label>
         <input type="text" name="phone_number"><br>
         
+        <label for="phone_number">Experience:</label>
+        <input type="text" name="experience"><br>
+
         <label for="email">Email:</label>
         <input type="email" name="email" required><br>
         {%if message_id%}

@@ -118,6 +118,9 @@ def homepage():
 #Member registration
 @app.route('/register', methods=["GET", "POST"])
 def register():
+    member = current_user
+    if isinstance(member,Members):
+        return redirect(url_for('dashboard'))
     if request.method == "POST":
         # Get form data
         name = request.form.get("name")
@@ -153,6 +156,9 @@ def register():
 #Member login
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    member = current_user
+    if isinstance(member,Members):
+        return redirect(url_for('dashboard'))
     if request.method == "POST":
         member = Members.query.filter_by(email=request.form.get("email")).first()
         password = request.form.get("password")
@@ -171,21 +177,66 @@ def login():
 #user dashboard
 @app.route("/dashboard")
 def dashboard():
-     try:
-        member = current_user
+    member = current_user
+    if isinstance(member,Members):
         return member.email
-     except Exception:
-         return redirect(url_for("login"))
+    return redirect(url_for("login"))
 
 
 #user logout
 @app.route("/logout")
 def logout():
-    logout_user()
-    return redirect(url_for("homepage"))
+    member = current_user
+    if isinstance(member,Members):
+        logout_user()
+        return redirect(url_for("homepage"))
 
 
 #-------------------------------------------------------Routing Trainer----------------------------------------------------------------------#
+
+#trainer login
+@app.route("/trainer/login", methods=["GET", "POST"])
+def trainer_login():
+    trainer = current_user
+    if isinstance(trainer,Trainers):
+        return redirect(url_for('trainer_dashboard'))
+    if request.method == "POST":
+        trainer = Trainers.query.filter_by(email=request.form.get("email")).first()
+        password = request.form.get("password")
+        try:
+            if trainer and ph.verify(trainer.password, password):
+                # The entered password matches the stored hashed password
+                login_user(trainer)
+                print("login")
+                return redirect(url_for("trainer_dashboard"))
+        except VerifyMismatchError:
+            # Password doesn't match or user not found
+            print("wrong pass")
+            return render_template("login.html", message="Invalid email or password")
+    return render_template("login.html")
+
+
+
+# trainer dashboard
+@app.route('/trainer/dashboard')
+def trainer_dashboard():
+    trainer = current_user
+    if isinstance(trainer,Trainers):
+        return trainer.email
+    return redirect(url_for("trainer_login"))
+
+
+
+#trainer logout
+@app.route("/trainer/logout")
+def trainer_logout():
+    trainer = current_user
+    if isinstance(trainer,Trainers):
+        logout_user()
+        return redirect(url_for("homepage"))
+
+
+
 
 #-------------------------------------------------------Routing Admin------------------------------------------------------------------------#
 #developement testing
@@ -248,13 +299,16 @@ def create_admin():
 #Admin login
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
+    admin = current_user
+    if isinstance(admin,Admin):
+        return redirect(url_for('admin_panel'))
     if request.method == "POST":
-        member = Members.query.filter_by(email=request.form.get("email")).first()
+        admin = Admin.query.filter_by(email=request.form.get("email")).first()
         password = request.form.get("password")
         try:
-            if member and ph.verify(member.password, password):
+            if admin and ph.verify(admin.password, password):
                 # The entered password matches the stored hashed password
-                login_user(member)
+                login_user(admin)
                 print("login")
                 return redirect(url_for("admin_panel"))
         except VerifyMismatchError:
@@ -264,22 +318,63 @@ def admin_login():
     return render_template("login.html")
 
 
-
+# admin panel
 @app.route('/admin/panel')
 def admin_panel():
-    if current_user:
-        admin = current_user
+    admin = current_user
+    if isinstance(admin,Admin):
         return admin.email
-    else:
-        return redirect(url_for("admin_login"))
+    return redirect(url_for("admin_login"))
 
-
+#hire trainer
 @app.route('/admin/hire_trainer', methods=["GET","POST"])
 def hire_trainer():
-    if request.method=="POST":
-        
-        return
-    return render_template('/admin/hiretrainer.html')
+    admin = current_user
+    if isinstance(admin,Admin):
+        if request.method=="POST":
+            name = request.form.get("name")
+            phone_number = request.form.get("phone_number")
+            experience = request.form.get("experience")
+            email = request.form.get("email")
+            passwd = request.form.get("password")
+            trainer_since = datetime.now()
+
+            existing_trainer = Trainers.query.filter_by(email=email).first()
+            if existing_trainer:
+                return render_template('/admin/hiretrainer.html', message_id=1)
+            else:
+                trainer = Trainers(
+                    name = name,
+                    phone_number = phone_number,
+                    experience = experience,
+                    email = email,
+                    password = passwd,
+                    trainer_since = trainer_since
+                    )
+                
+                db.session.add(trainer)
+                db.session.commit()
+                return "Trainer Registered Successfully"
+        return render_template('/admin/hiretrainer.html')
+    return redirect(url_for('admin_login'))
+
+#admin logout
+@app.route("/admin/logout")
+def admin_logout():
+    admin = current_user
+    if isinstance(admin,Admin):
+        logout_user()
+        return redirect(url_for("homepage"))
+
+
+
+
+
+
+
+
+
+
 
 #---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':
