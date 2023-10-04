@@ -61,11 +61,15 @@ class Members(db.Model,UserMixin):
         self.password = ph.hash(password)
         last_id=0
         if last_mem:
-            last_id = int(last_mem[3:])
+            last_id = int(last_mem.id[3:])
         self.id = f"mem{last_id+1}"
 
     def assign_trainer(self,trainer_id):
         self.trainer = trainer_id
+        db.session.add(self)
+        db.session.commit()
+
+    def register(self):
         db.session.add(self)
         db.session.commit()
 
@@ -88,7 +92,7 @@ class Trainers(db.Model,UserMixin):
         self.password = ph.hash(password)
         last_id=0
         if last_train:
-            last_id = int(last_train[3:])
+            last_id = int(last_train.id[3:])
         self.id = f"tra{last_id+1}"
 
 class Admin(db.Model,UserMixin):
@@ -106,7 +110,7 @@ class Admin(db.Model,UserMixin):
         self.password = ph.hash(password)
         last_id=0
         if last_adm:
-            last_id = int(last_adm[3:])
+            last_id = int(last_adm.id[3:])
         self.id  = f"adm{last_id+1}"
 #endregion
 
@@ -146,9 +150,7 @@ def register():
                 password=password,
                 member_since=member_since
             )
-
-            db.session.add(member)
-            db.session.commit()
+            member.register()
             return redirect(url_for("login"))
     
     return render_template("register.html",message_id=0)
