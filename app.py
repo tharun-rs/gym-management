@@ -2,12 +2,12 @@
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning, module="sqlalchemy")
 
-from flask import Flask, request, flash, url_for, redirect, render_template
+from flask import Flask, request, flash, url_for, redirect, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
-from datetime import datetime 
+from datetime import datetime, timedelta
 
 
 
@@ -43,6 +43,68 @@ def load_user(user_id):
 
 #----------------------------------------------------------Classes--------------------------------------------------------------------------#
 #region
+
+class Session(db.Model):
+    session_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    member_id = db.Column(db.String(10))
+    trainer_comments = db.Column(db.String(100))
+    start_time = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
+    duration = db.Column(db.Integer)
+
+    def __init__(self,member_id):
+        self.member_id = member_id
+        self.start_time = datetime.now()
+        db.session.add(self)
+        db.session.commit()
+    
+    def close_session(member_id,trainer_comments):
+        session = Session.query.filter_by(member_id=member_id,end_time=None)
+        if session:
+            session.end_time = datetime.now()
+            time_duration = session.end_time - session.start_time
+            session.duration = time_duration.seconds //60
+            session.trainer_comments = trainer_comments
+            db.session.commit()
+
+class Package(db.Model):
+    pkg_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.String(20))
+    duration = db.Column(db.Integer)
+    description = db.Column(db.String(100))
+    price = db.Column(db.Integer)
+
+    def __init__(self,name,duration,description,price):
+        self.name = name
+        self.duration = duration
+        self.description = description
+        self.price = price
+        db.session.add(self)
+        db.session.commit()
+    
+    def delete(id):
+        del_pkg = Package.query.get(id)
+        db.session.delete(del_pkg)
+        db.session.commit()
+    
+    def modify(self,name,duration,description,price):
+        self.name = name
+        self.duration = duration
+        self.description = description
+        self.price = price
+        db.session.commit()
+
+
+class Subscription(db.Model):
+    subscription_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    pkg_id = db.Column(db.Integer)
+    mem_id = db.Column(db.String(10))
+    completed = db.Column(db.Integer)
+
+
+
+
+
 class Members(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
@@ -64,7 +126,7 @@ class Members(db.Model,UserMixin):
             last_id = int(last_mem.id[3:])
         self.id = f"mem{last_id+1}"
 
-    def assign_trainer(self,trainer_id):
+    def choose_trainer(self,trainer_id):
         self.trainer = trainer_id
         db.session.add(self)
         db.session.commit()
@@ -72,6 +134,8 @@ class Members(db.Model,UserMixin):
     def register(self):
         db.session.add(self)
         db.session.commit()
+
+    
 
 class Trainers(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
@@ -95,6 +159,10 @@ class Trainers(db.Model,UserMixin):
             last_id = int(last_train.id[3:])
         self.id = f"tra{last_id+1}"
 
+    def list_trainers():
+        trainer_list = Trainers.query.all()
+        return trainer_list
+
 class Admin(db.Model,UserMixin):
     id   = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
@@ -103,7 +171,7 @@ class Admin(db.Model,UserMixin):
     password = db.Column(db.String(128), nullable=False)
 
     def __init__(self, name, phone_number, email, password):
-        last_adm = Admin.query.order_by(Admin.id    .desc()).first()
+        last_adm = Admin.query.order_by(Admin.id.desc()).first()
         self.name = name
         self.phone_number = phone_number
         self.email = email
@@ -112,6 +180,7 @@ class Admin(db.Model,UserMixin):
         if last_adm:
             last_id = int(last_adm.id[3:])
         self.id  = f"adm{last_id+1}"
+
 #endregion
 
 #--------------------------------------------------------Routing Member----------------------------------------------------------------------#
@@ -183,7 +252,7 @@ def login():
 def dashboard():
     member = current_user
     if isinstance(member,Members):
-        return member.email
+        return render_template("dashboard.html",member=member)
     return redirect(url_for("login"))   
 
 
@@ -328,7 +397,7 @@ def admin_login():
 def admin_panel():
     admin = current_user
     if isinstance(admin,Admin):
-        return admin.email
+        return render_template('admin/index.html',admin=admin)
     return redirect(url_for("admin_login"))
 
 #hire trainer
@@ -362,6 +431,58 @@ def hire_trainer():
                 return "Trainer Registered Successfully"
         return render_template('/admin/hiretrainer.html')
     return redirect(url_for('admin_login'))
+
+
+@app.route("/admin/package")
+def package_manager():
+    admin = current_user
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    package_list = Package.query.all()
+    return render_template('/admin/package.html',admin=admin,pkgs=package_list)
+    
+
+@app.route("/admin/package/add", methods=["POST"])
+def add_package():
+    admin = current_user
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    if request.method == 'POST':
+        name = request.form['name']
+        duration = int(request.form['duration'])
+        description = request.form['description']
+        price = int(request.form['price'])
+        Package(name=name, duration=duration, description=description, price=price)
+    return redirect(url_for('package_manager'))
+
+@app.route("/admin/package/delete", methods=["POST"])
+def delete_package():
+    admin = current_user
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    package_id = int(request.form.get('id'))
+    Package.delete(package_id)
+    return redirect(url_for('package_manager'))
+
+@app.route("/admin/package/modify",methods=["GET","POST"])
+def modify_package():
+    admin = current_user
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    id = request.args.get('id')
+    package = Package.query.get(id)
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        duration = request.form.get('duration')
+        description = request.form.get('description')
+        price = request.form.get('price')
+        package.modify(name,duration,description,price)
+        db.session.commit()
+
+        return redirect(url_for('package_manager')) 
+
+    return render_template("/admin/package_modify.html",admin=admin, package=package)
 
 #admin logout
 @app.route("/admin/logout")

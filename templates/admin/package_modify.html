@@ -1,0 +1,37 @@
+{% extends "/admin/header.html" %}
+{% block content %}
+
+<div class="pagetitle">
+  <h1>Package Editor</h1>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+  <div class="row">
+    <div class="col">
+      <form method="POST" action="#">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ package.name }}">
+        </div>
+        <div>
+            <label for="duration">Duration:</label>
+            <input type="number" id="duration" name="duration" value="{{ package.duration }}">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" value="{{ package.description }}">
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" value="{{ package.price }}">
+        </div>
+        <div>
+            <input type="submit" value="Save">
+        </div>
+    </form>
+    
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}
