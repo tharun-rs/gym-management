@@ -415,7 +415,7 @@ def hire_trainer():
 
             existing_trainer = Trainers.query.filter_by(email=email).first()
             if existing_trainer:
-                return render_template('/admin/hiretrainer.html', message_id=1)
+                return render_template('/admin/hiretrainer.html', message_id=1,admin=admin)
             else:
                 trainer = Trainers(
                     name = name,
@@ -428,8 +428,8 @@ def hire_trainer():
                 
                 db.session.add(trainer)
                 db.session.commit()
-                return "Trainer Registered Successfully"
-        return render_template('/admin/hiretrainer.html')
+                return redirect(url_for('admin_panel'))
+        return render_template('/admin/hiretrainer.html',admin=admin)
     return redirect(url_for('admin_login'))
 
 
