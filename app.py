@@ -131,7 +131,6 @@ class Members(db.Model,UserMixin):
     def register(self):
         db.session.add(self)
         db.session.commit()
-  
 
 class Trainers(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
@@ -189,7 +188,6 @@ class Admin(db.Model,UserMixin):
         if last_adm:
             last_id = int(last_adm.id[3:])
         self.id  = f"adm{last_id+1}"
-
 
 #endregion
 
@@ -261,10 +259,18 @@ def login():
 @app.route("/dashboard")
 def dashboard():
     member = current_user
-    if isinstance(member,Members):
-        return render_template("dashboard.html",member=member)
-    return redirect(url_for("login"))   
-
+    if not isinstance(member,Members):
+        return redirect(url_for("login"))
+    subscription = Subscription.query.filter_by(mem_id=member.id).first()
+    return render_template("dashboard.html",member=member,subscription=subscription)
+    
+@app.route("/subscribe")
+def subscribe():
+    member = current_user
+    if not isinstance(member,Members):
+        return redirect(url_for("login"))
+    
+    
 
 #user logout
 @app.route("/logout")
@@ -410,6 +416,37 @@ def admin_panel():
         return render_template('admin/index.html',admin=admin)
     return redirect(url_for("admin_login"))
 
+#hire trainer
+@app.route('/admin/hire_trainer', methods=["GET","POST"])
+def hire_trainer():
+    admin = current_user
+    if isinstance(admin,Admin):
+        if request.method=="POST":
+            name = request.form.get("name")
+            phone_number = request.form.get("phone_number")
+            experience = request.form.get("experience")
+            email = request.form.get("email")
+            passwd = request.form.get("password")
+
+            existing_trainer = Trainers.query.filter_by(email=email).first()
+            if existing_trainer:
+                return render_template('/admin/hiretrainer.html', message_id=1,admin=admin)
+            else:
+                trainer = Trainers(
+                    name = name,
+                    phone_number = phone_number,
+                    experience = experience,
+                    email = email,
+                    password = passwd
+                    )
+                
+                db.session.add(trainer)
+                db.session.commit()
+                return redirect(url_for('trainer_manager'))
+        return redirect(url_for('trainer_manager'))
+    return redirect(url_for('admin_login'))
+
+
 @app.route('/admin/trainers')
 def trainer_manager():
     admin = current_user
@@ -510,4 +547,4 @@ def admin_logout():
 
 #---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':
-    app.run()
+    app.run('127.0.0.1','80')
