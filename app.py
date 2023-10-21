@@ -102,9 +102,6 @@ class Subscription(db.Model):
     completed = db.Column(db.Integer)
 
 
-
-
-
 class Members(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
     name = db.Column(db.String(100))
@@ -134,8 +131,7 @@ class Members(db.Model,UserMixin):
     def register(self):
         db.session.add(self)
         db.session.commit()
-
-    
+  
 
 class Trainers(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
@@ -146,12 +142,12 @@ class Trainers(db.Model,UserMixin):
     trainer_since = db.Column(db.DateTime)
     password = db.Column(db.String(128), nullable=False)
 
-    def __init__(self, name, phone_number, email, password, experience, trainer_since):
+    def __init__(self, name, phone_number, email, password, experience):
         last_train = Trainers.query.order_by(Trainers.id.desc()).first()
         self.name = name
         self.phone_number = phone_number
         self.email = email
-        self.trainer_since = trainer_since
+        self.trainer_since = datetime.now()
         self.experience = experience
         self.password = ph.hash(password)
         last_id=0
@@ -162,6 +158,19 @@ class Trainers(db.Model,UserMixin):
     def list_trainers():
         trainer_list = Trainers.query.all()
         return trainer_list
+    
+    def delete(id):
+        del_trainer = Trainers.query.get(id)
+        db.session.delete(del_trainer)
+        db.session.commit()
+
+    def modify(self, name, phone_number, email, experience):
+        self.name = name
+        self.phone_number = phone_number
+        self.email = email
+        self.experience = experience
+        db.session.commit()
+
 
 class Admin(db.Model,UserMixin):
     id   = db.Column(db.String(10), primary_key=True)
@@ -180,6 +189,7 @@ class Admin(db.Model,UserMixin):
         if last_adm:
             last_id = int(last_adm.id[3:])
         self.id  = f"adm{last_id+1}"
+
 
 #endregion
 
@@ -400,37 +410,42 @@ def admin_panel():
         return render_template('admin/index.html',admin=admin)
     return redirect(url_for("admin_login"))
 
-#hire trainer
-@app.route('/admin/hire_trainer', methods=["GET","POST"])
-def hire_trainer():
+@app.route('/admin/trainers')
+def trainer_manager():
     admin = current_user
-    if isinstance(admin,Admin):
-        if request.method=="POST":
-            name = request.form.get("name")
-            phone_number = request.form.get("phone_number")
-            experience = request.form.get("experience")
-            email = request.form.get("email")
-            passwd = request.form.get("password")
-            trainer_since = datetime.now()
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    trainer_list = Trainers.query.all()
+    return render_template('/admin/trainers.html',admin=admin,trainers=trainer_list)
 
-            existing_trainer = Trainers.query.filter_by(email=email).first()
-            if existing_trainer:
-                return render_template('/admin/hiretrainer.html', message_id=1,admin=admin)
-            else:
-                trainer = Trainers(
-                    name = name,
-                    phone_number = phone_number,
-                    experience = experience,
-                    email = email,
-                    password = passwd,
-                    trainer_since = trainer_since
-                    )
-                
-                db.session.add(trainer)
-                db.session.commit()
-                return redirect(url_for('admin_panel'))
-        return render_template('/admin/hiretrainer.html',admin=admin)
-    return redirect(url_for('admin_login'))
+@app.route("/admin/trainer/delete", methods=["POST"])
+def delete_trainer():
+    admin = current_user
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    trainer_id = request.form.get('id')
+    Trainers.delete(trainer_id)
+    return redirect(url_for('trainer_manager'))
+
+@app.route("/admin/trainer/modify",methods=["GET","POST"])
+def modify_trainer():
+    admin = current_user
+    if not isinstance(admin,Admin):
+        return redirect(url_for('admin_login'))
+    id = request.args.get('id')
+    trainer = Trainers.query.get(id)
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        phone_number = request.form.get('phone_number')
+        email = request.form.get('email')
+        experience = request.form.get('experience')
+        trainer.modify(name, phone_number, email, experience)
+
+
+        return redirect(url_for('trainer_manager')) 
+
+    return render_template("/admin/trainer_modify.html",admin=admin, trainer=trainer)
 
 
 @app.route("/admin/package")
@@ -478,7 +493,6 @@ def modify_package():
         description = request.form.get('description')
         price = request.form.get('price')
         package.modify(name,duration,description,price)
-        db.session.commit()
 
         return redirect(url_for('package_manager')) 
 

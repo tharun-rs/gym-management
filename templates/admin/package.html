@@ -29,13 +29,16 @@
             <td>{{ pkg.description }}</td>
             <td>{{ pkg.price }}</td>
             <script>
-              var pkgid = document.getElementById('pkgid').textContent;
+              var pkgElements = document.querySelectorAll('#pkgid');
+              var lastPkgElement = pkgElements[pkgElements.length - 1];
+              var pkgid = lastPkgElement.textContent;
             </script>
             <td><button onclick="editpkg(pkgid)">Edit</button></td>
             <td>
               <form action="{{url_for('delete_package')}}" method="post">
-                <input type="number" name="id" value="{{pkg.pkg_id}}" hidden/>
-                <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this entry?');">
+                <input type="number" name="id" value="{{pkg.pkg_id}}" hidden />
+                <input type="submit" value="Delete"
+                  onclick="return confirm('Are you sure you want to delete this entry?');">
               </form>
             </td>
 
@@ -87,20 +90,6 @@
     window.location.href = '{{ url_for("modify_package") }}' + '?id=' + pkgId; // Replace with the URL you want to redirect to
   }
 
-  function deletepkg(pkgId) {
-    if (confirm('Are you sure you want to delete this package?')) {
-      alert('done');
-      $.ajax({
-        type: 'POST',
-        url: '{{url_for("delete_package")}}',
-        data: JSON.stringify({ id: pkgId }),
-        contentType: 'application/json',
-        success: function (response) {
-          alert('Deleted')
-        }
-      });
-    }
-  }
 
 </script>
 {% endblock %}

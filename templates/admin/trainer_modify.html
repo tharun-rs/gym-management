@@ -1,0 +1,41 @@
+{% extends "/admin/header.html" %}
+{% block content %}
+
+<div class="pagetitle">
+  <h1>Trainer Editor</h1>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+  <div class="row">
+    <div class="col">
+      <form method="POST" action="#">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ trainer.name }}">
+        </div>
+        <div>
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ trainer.phone_number }}">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" value="{{ trainer.email }}">
+        </div>
+        <div>
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" name="experience" value="{{ trainer.experience }}">
+        </div>
+        <div>
+            <label for="trainer_since">Trainer Since:</label>
+            <input type="text" id="trainer_since" name="trainer_since" value="{{ trainer.trainer_since }}">
+        </div>
+        <div>
+            <input type="submit" value="Save">
+        </div>
+    </form>
+    
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}
