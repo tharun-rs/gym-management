@@ -31,13 +31,7 @@
             <td>{{ trainer.email }}</td>
             <td>{{ trainer.experience }}</td>
             <td>{{ trainer.trainer_since }}</td>
-            <script>
-              var trainerElements = document.querySelectorAll('#trainerid');
-              var lastTrainerElement = trainerElements[trainerElements.length - 1];
-              var trainerId = lastTrainerElement.textContent;
-
-            </script>
-            <td><button onclick="editTrainer(trainerId)">Edit</button></td>
+            <td><button id="{{pkg.pkg_id}}" onclick="editTrainer(this.id)">Edit</button></td>
             <td>
               <form action="{{url_for('delete_trainer')}}" method="post">
                 <input type="text" name="id" value="{{ trainer.id }}" hidden />

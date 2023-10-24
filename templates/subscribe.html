@@ -1,0 +1,64 @@
+{% extends "/header.html" %}
+{% block content %}
+
+
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+  <div class="hero-container" data-aos="fade-in">
+    <div class="hero-container" data-aos="fade-in">
+      <div class="container">
+        <div class="row" id="package-list">
+            {% for package in pkgs %}
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ package.name }}</h5>
+                  <ul>
+                    <li>{{ package.duration//30 }} months</li>
+                    <li>{{ package.description }}</li>
+                    <li>Rs {{ package.price }} per month</li>
+                  </ul>
+                  <button id="{{package.pkg_id}}" onclick="fillpkg(this.id)">Select</button>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row" id="trainer-list" style="display: none;">
+            {% for trainer in trainers %}
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ trainer.name }}</h5>
+                  <ul>
+                    <li>Phone Number: {{ trainer.phone_number }}</li>
+                    <li>Email: {{ trainer.email }}</li>
+                    <li>Experience: {{ trainer.experience }}</li>
+                  </ul>
+                  <button id="{{trainer.id}}" onclick="filltrainer(this.id)">Select</button>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<form action="#" method="post">
+  <input type="number" name="select_package" id="select_package" hidden>
+  <input type="text" name="select_trainer" id="select_trainer" hidden>
+  <input type="submit" id="submitbtn" hidden>
+</form>
+<script>
+  function fillpkg(id) {
+    document.getElementById('select_package').value = id;
+    document.getElementById('package-list').style.display = 'none';
+    document.getElementById('trainer-list').style.display = 'flex';
+  }
+  function filltrainer(id) {
+    document.getElementById('select_trainer').value = id;
+    document.getElementById('submitbtn').click();
+  }
+</script>
+{% endblock %}

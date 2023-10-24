@@ -99,7 +99,21 @@ class Subscription(db.Model):
     subscription_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     pkg_id = db.Column(db.Integer)
     mem_id = db.Column(db.String(10))
+    tra_id = db.Column(db.String(10))
     completed = db.Column(db.Integer)
+
+    def __init__(self,pkg_id,mem_id,tra_id):
+        self.pkg_id = pkg_id
+        self.mem_id = mem_id
+        self.tra_id = tra_id
+        self.completed = 0
+        db.session.add(self)
+        db.session.commit()
+    
+    def get_options():
+        pkgs = Package.query.all()
+        trainers = Trainers.query.all()
+        return pkgs,trainers
 
 
 class Members(db.Model,UserMixin):
@@ -109,7 +123,6 @@ class Members(db.Model,UserMixin):
     email = db.Column(db.String(100), nullable=False)
     member_since = db.Column(db.DateTime)
     password = db.Column(db.String(128), nullable=False)
-    trainer = db.Column(db.String(10))
     
     def __init__(self, name, phone_number, email, password, member_since):
         last_mem = Members.query.order_by(Members.id.desc()).first()
@@ -122,11 +135,6 @@ class Members(db.Model,UserMixin):
         if last_mem:
             last_id = int(last_mem.id[3:])
         self.id = f"mem{last_id+1}"
-
-    def choose_trainer(self,trainer_id):
-        self.trainer = trainer_id
-        db.session.add(self)
-        db.session.commit()
 
     def register(self):
         db.session.add(self)
@@ -264,11 +272,21 @@ def dashboard():
     subscription = Subscription.query.filter_by(mem_id=member.id).first()
     return render_template("dashboard.html",member=member,subscription=subscription)
     
-@app.route("/subscribe")
+@app.route("/subscribe",methods=["GET","POST"])
 def subscribe():
     member = current_user
     if not isinstance(member,Members):
         return redirect(url_for("login"))
+    if Subscription.query.filter_by(mem_id=member.id).first():
+        return redirect(url_for('dashboard'))
+    if request.method == 'GET':
+        pkgs,trainers = Subscription.get_options()
+        return render_template('subscribe.html',member=member,pkgs=pkgs,trainers=trainers)
+    else:
+        pkg_id = request.form.get('select_package')
+        tra_id = request.form.get('select_trainer')
+        Subscription(pkg_id, member.id, tra_id)
+        return redirect(url_for('dashboard'))
     
     
 
@@ -310,9 +328,9 @@ def trainer_login():
 @app.route('/trainer/dashboard')
 def trainer_dashboard():
     trainer = current_user
-    if isinstance(trainer,Trainers):
-        return trainer.email
-    return redirect(url_for("trainer_login"))
+    if not isinstance(trainer,Trainers):
+        return redirect(url_for("trainer_login"))
+    return render_template('trainer/index.html',trainer=trainer)
 
 
 
