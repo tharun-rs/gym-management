@@ -9,8 +9,8 @@
     <meta content="" name="keywords" />
 
     <!-- Favicons -->
-    <link href="../static/img/favicon.png" rel="icon" />
-    <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="/static/img/favicon.png" rel="icon" />
+    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
     <!-- Google Fonts -->
     <link
@@ -19,31 +19,31 @@
     />
 
     <!-- Vendor CSS Files -->
-    <link href="../static/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="/static/vendor/aos/aos.css" rel="stylesheet" />
     <link
-      href="../static/vendor/bootstrap/css/bootstrap.min.css"
+      href="/static/vendor/bootstrap/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link
-      href="../static/vendor/bootstrap-icons/bootstrap-icons.css"
+      href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
       rel="stylesheet"
     />
     <link
-      href="../static/vendor/boxicons/css/boxicons.min.css"
+      href="/static/vendor/boxicons/css/boxicons.min.css"
       rel="stylesheet"
     />
     <link
-      href="../static/vendor/glightbox/css/glightbox.min.css"
+      href="/static/vendor/glightbox/css/glightbox.min.css"
       rel="stylesheet"
     />
-    <link href="../static/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet" />
     <link
-      href="../static/vendor/swiper/swiper-bundle.min.css"
+      href="/static/vendor/swiper/swiper-bundle.min.css"
       rel="stylesheet"
     />
 
     <!-- Template Main CSS File -->
-    <link href="../static/css/style.css" rel="stylesheet" />
+    <link href="/static/css/style.css" rel="stylesheet" />
 
     <!-- =======================================================
   * Template Name: Arsha
@@ -93,7 +93,7 @@
             </li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
             <li>
-              <a class="getstarted scrollto" href="#about">Join Us</a>
+              <a class="getstarted scrollto" href="{{url_for('login')}}">Login</a>
             </li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
@@ -118,11 +118,6 @@
             </h2>
             <div class="d-flex justify-content-center justify-content-lg-start">
               <a href="#about" class="btn-get-started scrollto">Learn about us</a>
-              <a
-                href="https://www.youtube.com/watch?v=wkTFd3QZSP0"
-                class="glightbox btn-watch-video"
-                ><i class="bi bi-play-circle"></i><span>Watch Video</span></a
-              >
             </div>
           </div>
         </div>
@@ -181,13 +176,10 @@
             >
               <div class="content">
                 <h3>
-                  Eum ipsam laborum deleniti
-                  <strong>velit pariatur architecto aut nihil</strong>
+                  Why Us
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Duis aute irure dolor in reprehenderit
+                  
                 </p>
               </div>
 
@@ -198,8 +190,7 @@
                       data-bs-toggle="collapse"
                       class="collapse"
                       data-bs-target="#accordion-list-1"
-                      ><span>01</span> Non consectetur a erat nam at lectus urna
-                      duis? <i class="bx bx-chevron-down icon-show"></i
+                      ><span>01</span> High Quality Service <i class="bx bx-chevron-down icon-show"></i
                       ><i class="bx bx-chevron-up icon-close"></i
                     ></a>
                     <div
@@ -208,10 +199,7 @@
                       data-bs-parent=".accordion-list"
                     >
                       <p>
-                        Feugiat pretium nibh ipsum consequat. Tempus iaculis
-                        urna id volutpat lacus laoreet non curabitur gravida.
-                        Venenatis lectus magna fringilla urna porttitor rhoncus
-                        dolor purus non.
+                        A high-quality gym offers state-of-the-art equipment, a variety of fitness classes, and experienced trainers to help you reach your fitness goals. It provides a clean, well-maintained environment, motivating atmosphere, and personalized support, making every workout experience exceptional.
                       </p>
                     </div>
                   </li>
@@ -221,8 +209,7 @@
                       data-bs-toggle="collapse"
                       data-bs-target="#accordion-list-2"
                       class="collapsed"
-                      ><span>02</span> Feugiat scelerisque varius morbi enim
-                      nunc? <i class="bx bx-chevron-down icon-show"></i
+                      ><span>02</span> State-of-the-Art Infrastructure <i class="bx bx-chevron-down icon-show"></i
                       ><i class="bx bx-chevron-up icon-close"></i
                     ></a>
                     <div
@@ -231,12 +218,7 @@
                       data-bs-parent=".accordion-list"
                     >
                       <p>
-                        Dolor sit amet consectetur adipiscing elit pellentesque
-                        habitant morbi. Id interdum velit laoreet id donec
-                        ultrices. Fringilla phasellus faucibus scelerisque
-                        eleifend donec pretium. Est pellentesque elit
-                        ullamcorper dignissim. Mauris ultrices eros in cursus
-                        turpis massa tincidunt dui.
+                        Our gym boasts state-of-the-art infrastructure, featuring a comprehensive range of modern fitness equipment and amenities, ensuring a premium exercise experience for our members. From advanced cardio machines to luxurious locker rooms, our top-tier facilities are designed to elevate your fitness journey.
                       </p>
                     </div>
                   </li>
@@ -246,8 +228,7 @@
                       data-bs-toggle="collapse"
                       data-bs-target="#accordion-list-3"
                       class="collapsed"
-                      ><span>03</span> Dolor sit amet consectetur adipiscing
-                      elit? <i class="bx bx-chevron-down icon-show"></i
+                      ><span>03</span> Extras <i class="bx bx-chevron-down icon-show"></i
                       ><i class="bx bx-chevron-up icon-close"></i
                     ></a>
                     <div
@@ -256,12 +237,7 @@
                       data-bs-parent=".accordion-list"
                     >
                       <p>
-                        Eleifend mi in nulla posuere sollicitudin aliquam
-                        ultrices sagittis orci. Faucibus pulvinar elementum
-                        integer enim. Sem nulla pharetra diam sit amet nisl
-                        suscipit. Rutrum tellus pellentesque eu tincidunt.
-                        Lectus urna duis convallis convallis tellus. Urna
-                        molestie at elementum eu facilisis sed odio morbi quis
+                        Our gym offers additional services that enhance your experience, including spacious locker rooms with secure storage, convenient on-site parking, a suana, and even a dedicated play area for children, ensuring that your fitness routine is convenient and family-friendly.
                       </p>
                     </div>
                   </li>
@@ -271,7 +247,7 @@
 
             <div
               class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
-              style="background-image: url('../static/img/why-us.png')"
+              style="background-image: url('/static/img/why-us.png')"
               data-aos="zoom-in"
               data-aos-delay="150"
             >
@@ -283,7 +259,7 @@
       <!-- End Why Us Section -->
 
       <!-- ======= Skills Section ======= -->
-      <section id="skills" class="skills">
+      <!--<section id="skills" class="skills">
         <div class="container" data-aos="fade-up">
           <div class="row">
             <div
@@ -291,7 +267,7 @@
               data-aos="fade-right"
               data-aos-delay="100"
             >
-              <img src="../static/img/skills.png" class="img-fluid" alt="" />
+              <img src="/static/img/skills.png" class="img-fluid" alt="" />
             </div>
             <div
               class="col-lg-6 pt-4 pt-lg-0 content"
@@ -362,7 +338,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section>-->
       <!-- End Skills Section -->
 
       <!-- ======= Services Section ======= -->
@@ -370,12 +346,6 @@
         <div class="container" data-aos="fade-up">
           <div class="section-title">
             <h2>Services</h2>
-            <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
-            </p>
           </div>
 
           <div class="row">
@@ -386,10 +356,9 @@
             >
               <div class="icon-box">
                 <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                <h4><a href="">Lorem Ipsum</a></h4>
+                <h4><a href="">Sauna</a></h4>
                 <p>
-                  Voluptatum deleniti atque corrupti quos dolores et quas
-                  molestias excepturi
+                  We provide a rejuvenating sauna facility for our members to relax and unwind after their workouts, promoting both physical and mental well-being.
                 </p>
               </div>
             </div>
@@ -401,10 +370,9 @@
             >
               <div class="icon-box">
                 <div class="icon"><i class="bx bx-file"></i></div>
-                <h4><a href="">Sed ut perspici</a></h4>
+                <h4><a href="">Private Training</a></h4>
                 <p>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore
+                  For a more personalized fitness journey, we offer private training sessions with experienced coaches who tailor workouts to your specific goals and needs, ensuring a focused and effective path to success.
                 </p>
               </div>
             </div>
@@ -416,10 +384,9 @@
             >
               <div class="icon-box">
                 <div class="icon"><i class="bx bx-tachometer"></i></div>
-                <h4><a href="">Magni Dolores</a></h4>
+                <h4><a href="">Physical Therapy</a></h4>
                 <p>
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                  qui officia
+                  Moreover, our gym provides access to on-site physical therapy services, where licensed professionals can assist in injury recovery and overall physical well-being, ensuring that your fitness journey is safe and supported.
                 </p>
               </div>
             </div>
@@ -431,10 +398,9 @@
             >
               <div class="icon-box">
                 <div class="icon"><i class="bx bx-layer"></i></div>
-                <h4><a href="">Nemo Enim</a></h4>
+                <h4><a href=""></a>Smoothie Bar</a></h4>
                 <p>
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                  blanditiis
+                  For a refreshing post-workout treat, we have a dedicated smoothie bar where you can indulge in a variety of nutritious and delicious smoothie options to replenish your energy and stay healthy.
                 </p>
               </div>
             </div>
@@ -448,17 +414,13 @@
         <div class="container" data-aos="zoom-in">
           <div class="row">
             <div class="col-lg-9 text-center text-lg-start">
-              <h3>Call To Action</h3>
+              <h3></h3>
               <p>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
               </p>
             </div>
-            <div class="col-lg-3 cta-btn-container text-center">
-              <a class="cta-btn align-middle" href="#">Call To Action</a>
-            </div>
+            <!--<div class="col-lg-3 cta-btn-container text-center">
+              <a class="cta-btn align-middle" href="#"></a>
+            </div>-->
           </div>
         </div>
       </section>
@@ -470,10 +432,6 @@
           <div class="section-title">
             <h2>Portfolio</h2>
             <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
             </p>
           </div>
 
@@ -497,7 +455,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-app">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-1.jpg"
+                  src="/static/img/portfolio/portfolio-1.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -506,7 +464,7 @@
                 <h4>App 1</h4>
                 <p>App</p>
                 <a
-                  href="../static/img/portfolio/portfolio-1.jpg"
+                  href="/static/img/portfolio/portfolio-1.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="App 1"
@@ -524,7 +482,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-web">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-2.jpg"
+                  src="/static/img/portfolio/portfolio-2.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -533,7 +491,7 @@
                 <h4>Web 3</h4>
                 <p>Web</p>
                 <a
-                  href="../static/img/portfolio/portfolio-2.jpg"
+                  href="/static/img/portfolio/portfolio-2.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="Web 3"
@@ -551,7 +509,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-app">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-3.jpg"
+                  src="/static/img/portfolio/portfolio-3.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -560,7 +518,7 @@
                 <h4>App 2</h4>
                 <p>App</p>
                 <a
-                  href="../static/img/portfolio/portfolio-3.jpg"
+                  href="/static/img/portfolio/portfolio-3.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="App 2"
@@ -578,7 +536,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-card">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-4.jpg"
+                  src="/static/img/portfolio/portfolio-4.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -587,7 +545,7 @@
                 <h4>Card 2</h4>
                 <p>Card</p>
                 <a
-                  href="../static/img/portfolio/portfolio-4.jpg"
+                  href="/static/img/portfolio/portfolio-4.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="Card 2"
@@ -605,7 +563,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-web">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-5.jpg"
+                  src="/static/img/portfolio/portfolio-5.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -614,7 +572,7 @@
                 <h4>Web 2</h4>
                 <p>Web</p>
                 <a
-                  href="../static/img/portfolio/portfolio-5.jpg"
+                  href="/static/img/portfolio/portfolio-5.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="Web 2"
@@ -632,7 +590,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-app">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-6.jpg"
+                  src="/static/img/portfolio/portfolio-6.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -641,7 +599,7 @@
                 <h4>App 3</h4>
                 <p>App</p>
                 <a
-                  href="../static/img/portfolio/portfolio-6.jpg"
+                  href="/static/img/portfolio/portfolio-6.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="App 3"
@@ -659,7 +617,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-card">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-7.jpg"
+                  src="/static/img/portfolio/portfolio-7.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -668,7 +626,7 @@
                 <h4>Card 1</h4>
                 <p>Card</p>
                 <a
-                  href="../static/img/portfolio/portfolio-7.jpg"
+                  href="/static/img/portfolio/portfolio-7.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="Card 1"
@@ -686,7 +644,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-card">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-8.jpg"
+                  src="/static/img/portfolio/portfolio-8.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -695,7 +653,7 @@
                 <h4>Card 3</h4>
                 <p>Card</p>
                 <a
-                  href="../static/img/portfolio/portfolio-8.jpg"
+                  href="/static/img/portfolio/portfolio-8.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="Card 3"
@@ -713,7 +671,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-web">
               <div class="portfolio-img">
                 <img
-                  src="../static/img/portfolio/portfolio-9.jpg"
+                  src="/static/img/portfolio/portfolio-9.jpg"
                   class="img-fluid"
                   alt=""
                 />
@@ -722,7 +680,7 @@
                 <h4>Web 3</h4>
                 <p>Web</p>
                 <a
-                  href="../static/img/portfolio/portfolio-9.jpg"
+                  href="/static/img/portfolio/portfolio-9.jpg"
                   data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link"
                   title="Web 3"
@@ -742,7 +700,7 @@
       <!-- End Portfolio Section -->
 
       <!-- ======= Team Section ======= -->
-      <section id="team" class="team section-bg">
+      <!--<section id="team" class="team section-bg">
         <div class="container" data-aos="fade-up">
           <div class="section-title">
             <h2>Team</h2>
@@ -759,7 +717,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../static/img/team/team-1.jpg"
+                    src="/static/img/team/team-1.jpg"
                     class="img-fluid"
                     alt=""
                   />
@@ -788,7 +746,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../static/img/team/team-2.jpg"
+                    src="/static/img/team/team-2.jpg"
                     class="img-fluid"
                     alt=""
                   />
@@ -814,7 +772,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../static/img/team/team-3.jpg"
+                    src="/static/img/team/team-3.jpg"
                     class="img-fluid"
                     alt=""
                   />
@@ -839,7 +797,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../static/img/team/team-4.jpg"
+                    src="/static/img/team/team-4.jpg"
                     class="img-fluid"
                     alt=""
                   />
@@ -862,7 +820,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section>-->
       <!-- End Team Section -->
 
       <!-- ======= Pricing Section ======= -->
@@ -871,10 +829,6 @@
           <div class="section-title">
             <h2>Pricing</h2>
             <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
             </p>
           </div>
 
@@ -970,10 +924,7 @@
           <div class="section-title">
             <h2>Frequently Asked Questions</h2>
             <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
+              Here are answers to some of the FAQs
             </p>
           </div>
 
@@ -985,7 +936,7 @@
                   data-bs-toggle="collapse"
                   class="collapse"
                   data-bs-target="#faq-list-1"
-                  >Non consectetur a erat nam at lectus urna duis?
+                  >Gym timings?
                   <i class="bx bx-chevron-down icon-show"></i
                   ><i class="bx bx-chevron-up icon-close"></i
                 ></a>
@@ -995,10 +946,7 @@
                   data-bs-parent=".faq-list"
                 >
                   <p>
-                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id
-                    volutpat lacus laoreet non curabitur gravida. Venenatis
-                    lectus magna fringilla urna porttitor rhoncus dolor purus
-                    non.
+                    BulkBois will be open 5:00am-10:00pm on weekdays and 6:00am-12:00pm on weekends
                   </p>
                 </div>
               </li>
@@ -1009,7 +957,7 @@
                   data-bs-toggle="collapse"
                   data-bs-target="#faq-list-2"
                   class="collapsed"
-                  >Feugiat scelerisque varius morbi enim nunc?
+                  >Are personal training sessions offered?
                   <i class="bx bx-chevron-down icon-show"></i
                   ><i class="bx bx-chevron-up icon-close"></i
                 ></a>
@@ -1019,11 +967,7 @@
                   data-bs-parent=".faq-list"
                 >
                   <p>
-                    Dolor sit amet consectetur adipiscing elit pellentesque
-                    habitant morbi. Id interdum velit laoreet id donec ultrices.
-                    Fringilla phasellus faucibus scelerisque eleifend donec
-                    pretium. Est pellentesque elit ullamcorper dignissim. Mauris
-                    ultrices eros in cursus turpis massa tincidunt dui.
+                    Yes, we have certified personal trainers who can train you personally and help you achieve your ideal physique.
                   </p>
                 </div>
               </li>
@@ -1034,7 +978,7 @@
                   data-bs-toggle="collapse"
                   data-bs-target="#faq-list-3"
                   class="collapsed"
-                  >Dolor sit amet consectetur adipiscing elit?
+                  >Are parking facilities available in the gym??
                   <i class="bx bx-chevron-down icon-show"></i
                   ><i class="bx bx-chevron-up icon-close"></i
                 ></a>
@@ -1044,17 +988,12 @@
                   data-bs-parent=".faq-list"
                 >
                   <p>
-                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices
-                    sagittis orci. Faucibus pulvinar elementum integer enim. Sem
-                    nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
-                    pellentesque eu tincidunt. Lectus urna duis convallis
-                    convallis tellus. Urna molestie at elementum eu facilisis
-                    sed odio morbi quis
+                    Yes, we have a 2-story parking facility which can accomodate atleast 350 vehicles.
                   </p>
                 </div>
               </li>
 
-              <li data-aos="fade-up" data-aos-delay="400">
+              <!--<li data-aos="fade-up" data-aos-delay="400">
                 <i class="bx bx-help-circle icon-help"></i>
                 <a
                   data-bs-toggle="collapse"
@@ -1102,7 +1041,7 @@
                     eu scelerisque.
                   </p>
                 </div>
-              </li>
+              </li>-->
             </ul>
           </div>
         </div>
@@ -1115,10 +1054,7 @@
           <div class="section-title">
             <h2>Contact</h2>
             <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
+              Here are our contact details
             </p>
           </div>
 
@@ -1128,19 +1064,19 @@
                 <div class="address">
                   <i class="bi bi-geo-alt"></i>
                   <h4>Location:</h4>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  <p>No.7, Dubai kuruku sandhu, Dubai bus stand, Dubai - 420</p>
                 </div>
 
                 <div class="email">
                   <i class="bi bi-envelope"></i>
                   <h4>Email:</h4>
-                  <p>info@example.com</p>
+                  <p>body@soda.com</p>
                 </div>
 
                 <div class="phone">
                   <i class="bi bi-phone"></i>
                   <h4>Call:</h4>
-                  <p>+1 5589 55488 55s</p>
+                  <p>+91 5287836866</p>
                 </div>
 
                 <iframe
@@ -1221,15 +1157,11 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
-      <div class="footer-newsletter">
+      <!--<div class="footer-newsletter">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
               <h4>Join Our Newsletter</h4>
-              <p>
-                Tamen quem nulla quae legam multos aute sint culpa legam noster
-                magna
-              </p>
               <form action="" method="post">
                 <input type="email" name="email" /><input
                   type="submit"
@@ -1239,12 +1171,12 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="footer-top">
         <div class="container">
           <div class="row">
-            <div class="col-lg-3 col-md-6 footer-contact">
+            <!--<div class="col-lg-3 col-md-6 footer-contact">
               <h3>Arsha</h3>
               <p>
                 A108 Adam Street <br />
@@ -1253,7 +1185,7 @@
                 <strong>Phone:</strong> +1 5589 55488 55<br />
                 <strong>Email:</strong> info@example.com<br />
               </p>
-            </div>
+            </div>-->
 
             <div class="col-lg-3 col-md-6 footer-links">
               <h4>Useful Links</h4>
@@ -1322,19 +1254,19 @@
         </div>
       </div>
 
-      <div class="container footer-bottom clearfix">
+      <!--<div class="container footer-bottom clearfix">
         <div class="copyright">
           &copy; Copyright <strong><span>Arsha</span></strong
           >. All Rights Reserved
         </div>
         <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
           Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
-      </div>
+      </div>-->
     </footer>
     <!-- End Footer -->
 
@@ -1346,15 +1278,15 @@
     ></a>
 
     <!-- Vendor JS Files -->
-    <script src="../static/vendor/aos/aos.js"></script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../static/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="../static/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="../static/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="../static/vendor/php-email-form/validate.js"></script>
+    <script src="/static/vendor/aos/aos.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/static/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="/static/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="../static/js/main.js"></script>
+    <script src="/static/js/main.js"></script>
   </body>
 </html>

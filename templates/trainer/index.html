@@ -1,0 +1,23 @@
+{% extends "/trainer/header.html" %}
+{% block content %}
+<div class="pagetitle">
+  <h1>Dashboard</h1>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row">
+
+
+        <div class="col-12">
+          <div class="card">
+            <a href="{{url_for('package_manager')}}">Manage Package</a>
+            <a href="{{url_for('trainer_manager')}}">Manage Trainers</a>
+          </div>
+        </div>
+
+
+
+  </div>
+</section>
+
+{% endblock %}

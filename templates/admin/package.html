@@ -1,7 +1,9 @@
 {% extends "/admin/header.html" %}
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script>
+  var i = 0;
+</script>
 <div class="pagetitle">
   <h1>Package Manager</h1>
 </div><!-- End Page Title -->
@@ -28,12 +30,8 @@
             <td>{{ pkg.duration }}</td>
             <td>{{ pkg.description }}</td>
             <td>{{ pkg.price }}</td>
-            <script>
-              var pkgElements = document.querySelectorAll('#pkgid');
-              var lastPkgElement = pkgElements[pkgElements.length - 1];
-              var pkgid = lastPkgElement.textContent;
-            </script>
-            <td><button onclick="editpkg(pkgid)">Edit</button></td>
+
+            <td><button id="{{pkg.pkg_id}}" onclick="editpkg(this.id)">Edit</button></td>
             <td>
               <form action="{{url_for('delete_package')}}" method="post">
                 <input type="number" name="id" value="{{pkg.pkg_id}}" hidden />
