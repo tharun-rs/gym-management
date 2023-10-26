@@ -67,6 +67,7 @@ class Session(db.Model):
             session.trainer_comments = trainer_comments
             db.session.commit()
 
+
 class Package(db.Model):
     pkg_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.String(20))
@@ -177,6 +178,14 @@ class Trainers(db.Model,UserMixin):
         self.email = email
         self.experience = experience
         db.session.commit()
+    
+    def get_trainees(self):
+        subs_list = Subscription.query.filter_by(tra_id=self.id).all()
+        member_ids = [sub.mem_id for sub in subs_list]
+        trainee_list = Members.query.filter(Members.id.in_(member_ids)).all()
+        return trainee_list
+    
+
 
 
 class Admin(db.Model,UserMixin):
@@ -331,6 +340,15 @@ def trainer_dashboard():
     if not isinstance(trainer,Trainers):
         return redirect(url_for("trainer_login"))
     return render_template('trainer/index.html',trainer=trainer)
+
+@app.route('/trainer/trainee', methods=["GET","POST"])
+def trainee_view():
+    trainer = current_user
+    if not isinstance(trainer,Trainers):
+        return redirect(url_for('trainer_login'))
+    trainee_list = trainer.get_trainees()
+    return render_template('trainer/trainee.html',trainees=trainee_list)
+
 
 
 
