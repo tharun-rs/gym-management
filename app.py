@@ -67,6 +67,7 @@ class Session(db.Model):
             session.trainer_comments = trainer_comments
             db.session.commit()
 
+
 class Package(db.Model):
     pkg_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.String(20))
@@ -99,7 +100,21 @@ class Subscription(db.Model):
     subscription_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     pkg_id = db.Column(db.Integer)
     mem_id = db.Column(db.String(10))
+    tra_id = db.Column(db.String(10))
     completed = db.Column(db.Integer)
+
+    def __init__(self,pkg_id,mem_id,tra_id):
+        self.pkg_id = pkg_id
+        self.mem_id = mem_id
+        self.tra_id = tra_id
+        self.completed = 0
+        db.session.add(self)
+        db.session.commit()
+    
+    def get_options():
+        pkgs = Package.query.all()
+        trainers = Trainers.query.all()
+        return pkgs,trainers
 
 
 class Members(db.Model,UserMixin):
@@ -109,7 +124,6 @@ class Members(db.Model,UserMixin):
     email = db.Column(db.String(100), nullable=False)
     member_since = db.Column(db.DateTime)
     password = db.Column(db.String(128), nullable=False)
-    trainer = db.Column(db.String(10))
     
     def __init__(self, name, phone_number, email, password, member_since):
         last_mem = Members.query.order_by(Members.id.desc()).first()
@@ -123,15 +137,9 @@ class Members(db.Model,UserMixin):
             last_id = int(last_mem.id[3:])
         self.id = f"mem{last_id+1}"
 
-    def choose_trainer(self,trainer_id):
-        self.trainer = trainer_id
-        db.session.add(self)
-        db.session.commit()
-
     def register(self):
         db.session.add(self)
         db.session.commit()
-  
 
 class Trainers(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
@@ -170,6 +178,14 @@ class Trainers(db.Model,UserMixin):
         self.email = email
         self.experience = experience
         db.session.commit()
+    
+    def get_trainees(self):
+        subs_list = Subscription.query.filter_by(tra_id=self.id).all()
+        member_ids = [sub.mem_id for sub in subs_list]
+        trainee_list = Members.query.filter(Members.id.in_(member_ids)).all()
+        return trainee_list
+    
+
 
 
 class Admin(db.Model,UserMixin):
@@ -189,7 +205,6 @@ class Admin(db.Model,UserMixin):
         if last_adm:
             last_id = int(last_adm.id[3:])
         self.id  = f"adm{last_id+1}"
-
 
 #endregion
 
@@ -261,10 +276,28 @@ def login():
 @app.route("/dashboard")
 def dashboard():
     member = current_user
-    if isinstance(member,Members):
-        return render_template("dashboard.html",member=member)
-    return redirect(url_for("login"))   
-
+    if not isinstance(member,Members):
+        return redirect(url_for("login"))
+    subscription = Subscription.query.filter_by(mem_id=member.id).first()
+    return render_template("dashboard.html",member=member,subscription=subscription)
+    
+@app.route("/subscribe",methods=["GET","POST"])
+def subscribe():
+    member = current_user
+    if not isinstance(member,Members):
+        return redirect(url_for("login"))
+    if Subscription.query.filter_by(mem_id=member.id).first():
+        return redirect(url_for('dashboard'))
+    if request.method == 'GET':
+        pkgs,trainers = Subscription.get_options()
+        return render_template('subscribe.html',member=member,pkgs=pkgs,trainers=trainers)
+    else:
+        pkg_id = request.form.get('select_package')
+        tra_id = request.form.get('select_trainer')
+        Subscription(pkg_id, member.id, tra_id)
+        return redirect(url_for('dashboard'))
+    
+    
 
 #user logout
 @app.route("/logout")
@@ -304,9 +337,18 @@ def trainer_login():
 @app.route('/trainer/dashboard')
 def trainer_dashboard():
     trainer = current_user
-    if isinstance(trainer,Trainers):
-        return trainer.email
-    return redirect(url_for("trainer_login"))
+    if not isinstance(trainer,Trainers):
+        return redirect(url_for("trainer_login"))
+    return render_template('trainer/index.html',trainer=trainer)
+
+@app.route('/trainer/trainee', methods=["GET","POST"])
+def trainee_view():
+    trainer = current_user
+    if not isinstance(trainer,Trainers):
+        return redirect(url_for('trainer_login'))
+    trainee_list = trainer.get_trainees()
+    return render_template('trainer/trainee.html',trainees=trainee_list)
+
 
 
 
@@ -410,6 +452,37 @@ def admin_panel():
         return render_template('admin/index.html',admin=admin)
     return redirect(url_for("admin_login"))
 
+#hire trainer
+@app.route('/admin/hire_trainer', methods=["GET","POST"])
+def hire_trainer():
+    admin = current_user
+    if isinstance(admin,Admin):
+        if request.method=="POST":
+            name = request.form.get("name")
+            phone_number = request.form.get("phone_number")
+            experience = request.form.get("experience")
+            email = request.form.get("email")
+            passwd = request.form.get("password")
+
+            existing_trainer = Trainers.query.filter_by(email=email).first()
+            if existing_trainer:
+                return render_template('/admin/hiretrainer.html', message_id=1,admin=admin)
+            else:
+                trainer = Trainers(
+                    name = name,
+                    phone_number = phone_number,
+                    experience = experience,
+                    email = email,
+                    password = passwd
+                    )
+                
+                db.session.add(trainer)
+                db.session.commit()
+                return redirect(url_for('trainer_manager'))
+        return redirect(url_for('trainer_manager'))
+    return redirect(url_for('admin_login'))
+
+
 @app.route('/admin/trainers')
 def trainer_manager():
     admin = current_user
@@ -510,4 +583,4 @@ def admin_logout():
 
 #---------------------------------------------------------------Run Flask--------------------------------------------------------------------#
 if __name__ == '__main__':
-    app.run()
+    app.run('127.0.0.1','80')
