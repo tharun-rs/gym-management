@@ -8,6 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from datetime import datetime, timedelta
+from sqlalchemy import select,and_,or_,in_
 
 
 
@@ -180,10 +181,32 @@ class Trainers(db.Model,UserMixin):
         db.session.commit()
     
     def get_trainees(self):
-        subs_list = Subscription.query.filter_by(tra_id=self.id).all()
+        subs_list = Subscription.query.filter_by(tra_id=self.id,completed=0).all()
         member_ids = [sub.mem_id for sub in subs_list]
-        trainee_list = Members.query.filter(Members.id.in_(member_ids)).all()
-        return trainee_list
+        active_list = Session.query.filter(
+            Session.member_id.in_(member_ids), Session.end_time == None
+        ).all()
+
+        active_ids = [act.member_id for act in active_list]
+
+        # Find inactive member IDs by subtracting active IDs from all member IDs
+        inactive_ids = list(set(member_ids) - set(active_ids))
+
+        # Query for inactive trainees
+        columns = [Members.id, Members.name, Members.phone_number, Members.email]
+        stmt = select(columns).where(Members.id.in_(inactive_ids))
+        inactive_result = db.session.execute(stmt)
+        inactive_trainees = inactive_result.fetchall()
+
+        # Query for active trainees with session information
+        columns = [Members.id, Members.name, Members.phone_number, Members.email, Session.session_id]
+        stmt = select(columns).join(
+            Session, Members.id == Session.member_id
+        ).where(Session.end_time.isnot(None))
+        active_result = db.session.execute(stmt)
+        active_trainees = active_result.fetchall()
+
+        return active_trainees, inactive_trainees
     
 
 
@@ -346,8 +369,8 @@ def trainee_view():
     trainer = current_user
     if not isinstance(trainer,Trainers):
         return redirect(url_for('trainer_login'))
-    trainee_list = trainer.get_trainees()
-    return render_template('trainer/trainee.html',trainees=trainee_list)
+    active,inactive = trainer.get_trainees()
+    return render_template('trainer/trainee.html',trainer=trainer,active=active,inactive=inactive)
 
 
 

@@ -24,7 +24,7 @@
             <td>{{ trainee.email }}</td>
             <td>{{ trainee.phone_number }}</td>
 
-            <td><button id="{{trainee.id}}" onclick="editpkg(this.id)">Mark Login</button></td>
+            <td><button id="{{trainee.id}}" onclick="viewtrainee(this.id)">View Trainee</button></td>
 
           </tr>
           {% endfor %}
@@ -35,26 +35,10 @@
 
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-4">
-      <button id="addPackageButton">Add Package</button>
-
-      <div id="addPackageForm" style="display: none;">
-        <form method="post" action="{{url_for('add_package')}}"> <!-- Set the appropriate action URL -->
-          <label for="name">Name:</label>
-          <input type="text" name="name" id="name" required><br>
-          <label for="duration">Duration:</label>
-          <input type="number" name="duration" id="duration" required><br>
-          <label for="description">Description:</label>
-          <input type="text" name="description" id="description" required><br>
-          <label for="price">Price:</label>
-          <input type="number" name="price" id="price" required><br>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-
-    </div>
-  </div>
 </section>
-
+<script>
+  function viewtrainee(id){
+    window.location.href = '/trainer/trainee/info/'+id;
+  }
+</script>
 {% endblock %}
