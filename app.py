@@ -8,7 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from datetime import datetime, timedelta
-from sqlalchemy import select,and_,or_,in_
+from sqlalchemy import select,and_,or_
 
 
 
