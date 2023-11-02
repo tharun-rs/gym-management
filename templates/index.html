@@ -94,7 +94,7 @@
               </ul> -->
             </li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-            {% if member %}
+            {% if not member %}
             <li>
               <a class="getstarted scrollto" href="{{url_for('login')}}">Login</a>
             </li>
@@ -862,7 +862,7 @@
                     <span>Extra locker shelf</span>
                   </li>
                 </ul>
-                <a href="#" class="buy-btn">Get Started</a>
+                <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
               </div>
             </div>
 
@@ -889,7 +889,7 @@
                     <i class="bx bx-check"></i> Extra locker shelf
                   </li>
                 </ul>
-                <a href="#" class="buy-btn">Get Started</a>
+                <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
               </div>
             </div>
 
@@ -916,7 +916,7 @@
                     <i class="bx bx-check"></i> Extra locker shelf
                   </li>
                 </ul>
-                <a href="#" class="buy-btn">Get Started</a>
+                <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
               </div>
             </div>
           </div>

@@ -52,12 +52,10 @@
 
       <nav id="navbar" class="nav-menu navbar">
         <ul>
-          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-          <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-          <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-          <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+          <li><a href="{{url_for('dashboard')}}" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="#" class="nav-link scrollto"><i class="bx bx-user"></i> <span>profile</span></a></li>
+          <li><a href="{{url_for('logout')}}" class="nav-link scrollto"><i class="bi bi-door-closed"></i> <span>Logout</span></a></li>
+          <li><a href="#" class="nav-link scrollto"><i class="bi bi-key"></i> <span>Change Password</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
     </div>
@@ -69,7 +67,7 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-    <div class="container">
+    <div class="container" hidden>
       <div class="copyright">
         &copy; Copyright <strong><span>iPortfolio</span></strong>
       </div>

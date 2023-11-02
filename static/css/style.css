@@ -1849,3 +1849,9 @@ section {
 #about{
   background-color: #3f3f3f;
 }
+
+
+
+.container {
+  overflow: hidden;
+}

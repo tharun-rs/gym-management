@@ -312,14 +312,17 @@ def login():
 @app.route("/dashboard")
 def dashboard():
     member = current_user
+    over = 0
+    package = None
     if not isinstance(member,Members):
         return redirect(url_for("login"))
     subscription = Subscription.query.filter_by(mem_id=member.id).first()
-    sessions = Session.query.filter_by(member_id=member.id).all()
-    over = 0
-    for session in sessions:
-        over += session.duration
-    return render_template("dashboard.html",member=member,subscription=subscription)
+    if subscription:
+        sessions = Session.query.filter_by(member_id=member.id).all()
+        for session in sessions:
+            over += session.duration
+        package = Package.query.get(subscription.pkg_id)
+    return render_template("dashboard.html",over=over,member=member,subscription=subscription,package=package)
     
 @app.route("/subscribe",methods=["GET","POST"])
 def subscribe():
