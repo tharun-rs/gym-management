@@ -23,8 +23,11 @@
             <td>{{ trainee.name }}</td>
             <td>{{ trainee.email }}</td>
             <td>{{ trainee.phone_number }}</td>
-
-            <td><button id="{{trainee.id}}" onclick="viewtrainee(this.id)">View Trainee</button></td>
+            {% if trainee.id in active %}
+            <td><button id="{{trainee.id}}" onclick="end(this.id)">End session</button></td>
+            {% else %}
+            <td><button id="{{trainee.id}}" onclick="start(this.id)">Start session</button></td>
+            {% endif %}
 
           </tr>
           {% endfor %}
@@ -35,10 +38,30 @@
 
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <form method="post"  id="sessform" action="{{url_for('trainee_session')}}" style="display:none;">
+        <input type="text" name="action" id="actioninput" hidden/>
+        <input type="text" name="member" id="memberinput" hidden/>
+        <input type="text" name="comments" placeholder="Your Comments">
+        <input type="submit" id="submitbtn"/>
+      </form>
+    </div>
+  </div>
 </section>
+
 <script>
-  function viewtrainee(id){
-    window.location.href = '/trainer/trainee/info/'+id;
+  function end(id){
+    document.getElementById('actioninput').value = 'end';
+    document.getElementById('memberinput').value = id ;
+    //document.getElementById('submitbtn').click();
+    document.getElementById('sessform').style.display='flex';
+  }
+
+  function start(id){
+    document.getElementById('actioninput').value = 'start';
+    document.getElementById('memberinput').value = id ;
+    document.getElementById('submitbtn').click();
   }
 </script>
 {% endblock %}

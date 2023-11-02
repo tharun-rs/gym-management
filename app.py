@@ -60,12 +60,12 @@ class Session(db.Model):
         db.session.commit()
     
     def close_session(member_id,trainer_comments):
-        session = Session.query.filter_by(member_id=member_id,end_time=None)
-        if session:
-            session.end_time = datetime.now()
-            time_duration = session.end_time - session.start_time
-            session.duration = time_duration.seconds //60
-            session.trainer_comments = trainer_comments
+        sess = Session.query.filter_by(member_id=member_id,end_time=None).first()
+        if sess:
+            sess.end_time = datetime.now()
+            time_duration = sess.end_time - sess.start_time
+            sess.duration = time_duration.seconds //60
+            sess.trainer_comments = trainer_comments
             db.session.commit()
 
 
@@ -179,9 +179,22 @@ class Trainers(db.Model,UserMixin):
         self.email = email
         self.experience = experience
         db.session.commit()
-    
+
     def get_trainees(self):
-        subs_list = Subscription.query.filter_by(tra_id=self.id,completed=0).all()
+        subs_list = Subscription.query.filter_by(tra_id=self.id, completed=0).all()
+        member_ids = [sub.mem_id for sub in subs_list]
+        active_list = Session.query.filter(Session.member_id.in_(member_ids), Session.end_time == None).all()
+        active_ids = [ses.member_id for ses in active_list]
+
+        members = Members.query.filter(Members.id.in_(member_ids)).all()
+        return active_ids,members
+        
+        
+        
+        
+    """"
+    def get_trainees(self):
+        subs_list = Subscription.query.filter_by(tra_id=self.id, completed=0).all()
         member_ids = [sub.mem_id for sub in subs_list]
         active_list = Session.query.filter(
             Session.member_id.in_(member_ids), Session.end_time == None
@@ -206,10 +219,7 @@ class Trainers(db.Model,UserMixin):
         active_result = db.session.execute(stmt)
         active_trainees = active_result.fetchall()
 
-        return active_trainees, inactive_trainees
-    
-
-
+        return active_trainees, inactive_trainees"""
 
 class Admin(db.Model,UserMixin):
     id   = db.Column(db.String(10), primary_key=True)
@@ -236,7 +246,10 @@ class Admin(db.Model,UserMixin):
 #home page
 @app.route('/')
 def homepage():
-    return render_template('index.html', app_name='BulkBois', description='For the GymBros')
+    member = current_user
+    if isinstance(member,Members):
+        return render_template('index.html',member=member)
+    return render_template('index.html')
 
 #Member registration
 @app.route('/register', methods=["GET", "POST"])
@@ -302,6 +315,10 @@ def dashboard():
     if not isinstance(member,Members):
         return redirect(url_for("login"))
     subscription = Subscription.query.filter_by(mem_id=member.id).first()
+    sessions = Session.query.filter_by(member_id=member.id).all()
+    over = 0
+    for session in sessions:
+        over += session.duration
     return render_template("dashboard.html",member=member,subscription=subscription)
     
 @app.route("/subscribe",methods=["GET","POST"])
@@ -369,8 +386,19 @@ def trainee_view():
     trainer = current_user
     if not isinstance(trainer,Trainers):
         return redirect(url_for('trainer_login'))
-    active,inactive = trainer.get_trainees()
-    return render_template('trainer/trainee.html',trainer=trainer,active=active,inactive=inactive)
+    active,trainees = trainer.get_trainees()
+    return render_template('trainer/trainee.html',trainer=trainer,active=active,trainees=trainees)
+
+@app.route('/trainer/trainee/session',methods=["GET","POST"])
+def trainee_session():
+    action = request.form.get('action')
+    id = request.form.get('member')
+    comments = request.form.get('comments')
+    if action == 'start':
+        Session(id)
+    else:
+        Session.close_session(id,comments)
+    return redirect(url_for('trainee_view'))
 
 
 
