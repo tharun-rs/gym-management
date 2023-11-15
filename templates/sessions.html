@@ -1,0 +1,53 @@
+{% extends "/header.html" %}
+{% block content %}
+<style>
+  h3{
+    color: rgb(30, 70, 89);
+  }
+  h4{
+    color: rgb(13, 72, 63);
+  }
+</style>
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="hero-container" data-aos="fade-in">
+      <div class="row">
+        <div class="col">
+          <div class="container mt-5">
+            <h2>Session Details</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Session</th>
+                        <th>Trainer Comments</th>
+                        <th>Duration</th>
+                        <th>Cardio</th>
+                        <th>Strength</th>
+                        <th>Flexibility</th>
+                        <th>HIIT</th>
+                        <th>CrossFit</th>
+                        <th>Circuit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sess %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ session.trainer_comments }}</td>
+                            <td>{{ session.duration }}</td>
+                            <td>{{ 'Yes' if session.cardio else 'No' }}</td>
+                            <td>{{ 'Yes' if session.strength else 'No' }}</td>
+                            <td>{{ 'Yes' if session.flexibility else 'No' }}</td>
+                            <td>{{ 'Yes' if session.hiit else 'No' }}</td>
+                            <td>{{ 'Yes' if session.crossfit else 'No' }}</td>
+                            <td>{{ 'Yes' if session.circuit else 'No' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

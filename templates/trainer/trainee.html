@@ -40,12 +40,32 @@
   </div>
   <div class="row">
     <div class="col">
-      <form method="post"  id="sessform" action="{{url_for('trainee_session')}}" style="display:none;">
+      <form method="post" id="sessform" action="{{url_for('trainee_session')}}" style="display:none;">
         <input type="text" name="action" id="actioninput" hidden/>
         <input type="text" name="member" id="memberinput" hidden/>
+        <label>
+            <input type="checkbox" name="cardio"> Cardio
+        </label>
+        <label>
+            <input type="checkbox" name="strength"> Strength Training
+        </label>
+        <label>
+            <input type="checkbox" name="flexibility"> Flexibility Exercises
+        </label>
+        <label>
+            <input type="checkbox" name="hiit"> HIIT
+        </label>
+        <label>
+            <input type="checkbox" name="crossfit"> CrossFit
+        </label>
+        <label>
+            <input type="checkbox" name="circuit"> Circuit Training
+        </label>
+        <!-- Include additional checkboxes for equipment if needed -->
         <input type="text" name="comments" placeholder="Your Comments">
         <input type="submit" id="submitbtn"/>
-      </form>
+    </form>
+    
     </div>
   </div>
 </section>

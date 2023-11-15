@@ -52,6 +52,12 @@ class Session(db.Model):
     start_time = db.Column(db.DateTime)
     end_time = db.Column(db.DateTime)
     duration = db.Column(db.Integer)
+    cardio = db.Column(db.Boolean)
+    strength = db.Column(db.Boolean)
+    flexibility = db.Column(db.Boolean)
+    hiit = db.Column(db.Boolean)
+    crossfit = db.Column(db.Boolean)
+    circuit = db.Column(db.Boolean)
 
     def __init__(self,member_id):
         self.member_id = member_id
@@ -59,13 +65,19 @@ class Session(db.Model):
         db.session.add(self)
         db.session.commit()
     
-    def close_session(member_id,trainer_comments):
+    def close_session(member_id,trainer_comments,cardio, strength, flexibility, hiit, crossfit, circuit,):
         sess = Session.query.filter_by(member_id=member_id,end_time=None).first()
         if sess:
             sess.end_time = datetime.now()
             time_duration = sess.end_time - sess.start_time
             sess.duration = time_duration.seconds //60
             sess.trainer_comments = trainer_comments
+            sess.cardio = cardio
+            sess.strength = strength
+            sess.flexibility = flexibility
+            sess.hiit = hiit
+            sess.crossfit = crossfit
+            sess.circuit = circuit
             db.session.commit()
 
 
@@ -149,6 +161,10 @@ class Members(db.Model,UserMixin):
     def register(self):
         db.session.add(self)
         db.session.commit()
+
+    def getSessions(self):
+        return Session.query.filter_by(member_id=self.id).all()
+    
 
 class Trainers(db.Model,UserMixin):
     id = db.Column(db.String(10), primary_key=True)
@@ -351,6 +367,14 @@ def subscribe():
     
     
 
+@app.route("/sessions")
+def sessions():
+    member = current_user
+    if not isinstance(member,Members):
+        return redirect(url_for('login'))
+    sess = member.getSessions()
+    return render_template('sessions.html',sess=sess,member=member)
+
 #user logout
 @app.route("/logout")
 def logout():
@@ -401,15 +425,27 @@ def trainee_view():
     active,trainees = trainer.get_trainees()
     return render_template('trainer/trainee.html',trainer=trainer,active=active,trainees=trainees)
 
-@app.route('/trainer/trainee/session',methods=["GET","POST"])
+
+@app.route('/trainer/trainee/session', methods=["POST"])
 def trainee_session():
+    trainer = current_user
+    if not isinstance(trainer,Trainers):
+        return redirect(url_for('trainer_login'))   
     action = request.form.get('action')
     id = request.form.get('member')
     comments = request.form.get('comments')
+    cardio= 'cardio' in request.form
+    strength= 'strength' in request.form
+    flexibility='flexibility' in request.form
+    hiit= 'hiit' in request.form
+    crossfit= 'crossfit' in request.form
+    circuit= 'circuit' in request.form
+
     if action == 'start':
-        Session(id)
+        Session(member_id=id)
     else:
-        Session.close_session(id,comments)
+        Session.close_session(id,comments,cardio,strength,flexibility,hiit,crossfit,circuit)
+
     return redirect(url_for('trainee_view'))
 
 
