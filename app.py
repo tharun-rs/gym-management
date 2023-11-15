@@ -73,13 +73,21 @@ class Package(db.Model):
     pkg_id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.String(20))
     duration = db.Column(db.Integer)
-    description = db.Column(db.String(100))
+    lounge = db.Column(db.Boolean)
+    coach = db.Column(db.Boolean)
+    sauna = db.Column(db.Boolean)
+    smoothie = db.Column(db.Boolean)
+    locker = db.Column(db.Boolean)
     price = db.Column(db.Integer)
 
-    def __init__(self,name,duration,description,price):
+    def __init__(self,name,duration,lounge,coach,sauna,smoothie,locker,price):
         self.name = name
         self.duration = duration
-        self.description = description
+        self.lounge = lounge
+        self.coach = coach
+        self.sauna = sauna
+        self.smoothie = smoothie
+        self.locker = locker
         self.price = price
         db.session.add(self)
         db.session.commit()
@@ -247,9 +255,10 @@ class Admin(db.Model,UserMixin):
 @app.route('/')
 def homepage():
     member = current_user
+    packages = Package.query.all()
     if isinstance(member,Members):
-        return render_template('index.html',member=member)
-    return render_template('index.html')
+        return render_template('index.html',member=member,packages=packages)
+    return render_template('index.html',packages=packages)
 
 #Member registration
 @app.route('/register', methods=["GET", "POST"])
@@ -419,14 +428,6 @@ def trainer_logout():
 
 #-------------------------------------------------------Routing Admin------------------------------------------------------------------------#
 #region
-#developement testing
-@app.route('/temp')
-def temp():
-    all_records = Members.query.all()
-    s=""
-    for i,record in enumerate(all_records):
-        s+=str(i)+str(record.__dict__)+'\n\t\t\t\t\t\t\t\t'
-    return s
 
 #create tables for db
 @app.route('/admin/create_tables', methods=["POST","GET"])
@@ -584,18 +585,25 @@ def package_manager():
     return render_template('/admin/package.html',admin=admin,pkgs=package_list)
     
 
-@app.route("/admin/package/add", methods=["POST"])
+@app.route("/admin/package/add", methods=["POST","GET"])
 def add_package():
     admin = current_user
-    if not isinstance(admin,Admin):
+    if not isinstance(admin, Admin):
         return redirect(url_for('admin_login'))
     if request.method == 'POST':
         name = request.form['name']
         duration = int(request.form['duration'])
-        description = request.form['description']
         price = int(request.form['price'])
-        Package(name=name, duration=duration, description=description, price=price)
+        lounge = 'lounge' in request.form
+        coach = 'coach' in request.form
+        sauna = 'sauna' in request.form
+        smoothie = 'smoothie' in request.form
+        locker = 'locker' in request.form
+
+        Package(name=name,duration=duration,price=price,lounge=lounge,coach=coach,sauna=sauna,smoothie=smoothie,locker=locker)
+
     return redirect(url_for('package_manager'))
+
 
 @app.route("/admin/package/delete", methods=["POST"])
 def delete_package():

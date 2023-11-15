@@ -54,16 +54,24 @@
       <button id="addPackageButton">Add Package</button>
 
       <div id="addPackageForm" style="display: none;">
-        <form method="post" action="{{url_for('add_package')}}"> <!-- Set the appropriate action URL -->
+        <form method="post" action="{{url_for('add_package')}}">
           <label for="name">Name:</label>
           <input type="text" name="name" id="name" required><br>
           <label for="duration">Duration:</label>
           <input type="number" name="duration" id="duration" required><br>
-          <label for="description">Description:</label>
-          <input type="text" name="description" id="description" required><br>
+          <label for="lounge">Lounge:</label>
+          <input type="checkbox" name="lounge" id="lounge"><br>
+          <label for="coach">Coach:</label>
+          <input type="checkbox" name="coach" id="coach"><br>
+          <label for="sauna">Sauna:</label>
+          <input type="checkbox" name="sauna" id="sauna"><br>
+          <label for="smoothie">Smoothie:</label>
+          <input type="checkbox" name="smoothie" id="smoot  hie"><br>
+          <label for="locker">Locker:</label>
+          <input type="checkbox" name="locker" id="locker"><br>
           <label for="price">Price:</label>
           <input type="number" name="price" id="price" required><br>
-          <button type="submit">Submit</button>
+          <input type="submit" value="Submit">
         </form>
       </div>
 

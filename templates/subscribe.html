@@ -2,43 +2,109 @@
 {% block content %}
 
 
+<style>
+  /* Use CSS to remove bullet points */
+  ul {
+    list-style-type: none;
+    /* Removes bullet points for unordered lists */
+  }
+
+  .box {
+    background-color: rgb(243, 243, 243);
+
+
+  }
+</style>
+
+
+
+
 <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
   <div class="hero-container" data-aos="fade-in">
     <div class="hero-container" data-aos="fade-in">
       <div class="container">
         <div class="row" id="package-list">
-            {% for package in pkgs %}
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{ package.name }}</h5>
-                  <ul>
-                    <li>{{ package.duration//30 }} months</li>
-                    <li>{{ package.description }}</li>
-                    <li>Rs {{ package.price }} per month</li>
-                  </ul>
-                  <button id="{{package.pkg_id}}" onclick="fillpkg(this.id)">Select</button>
-                </div>
-              </div>
+          {% for pkg in pkgs %}
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+              <h3>{{pkg.name}}</h3>
+              <h4><sup>Rs</sup>{{pkg.price}}<span>per month</span></h4>
+              <ul>
+                {% if pkg.lounge %}
+                <li>
+                  <i class="bx bx-check"></i> Lounge access
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Lounge access</span>
+                  {% endif %}
+                </li>
+
+                {% if pkg.coach %}
+                <li>
+                  <i class="bx bx-check"></i> Dedicated fitness coach
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Dedicated fitness coach</span>
+                  {% endif %}
+                </li>
+                <li>
+
+                  {% if pkg.sauna %}
+                <li>
+                  <i class="bx bx-check"></i> Sauna access
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Sauna access</span>
+                  {% endif %}
+                </li>
+                <li>
+
+                  {% if pkg.smoothie %}
+                <li>
+                  <i class="bx bx-check"></i> Smoothie Bar access
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Smoothie Bar access</span>
+                  {% endif %}
+                </li>
+                <li>
+
+                  {% if pkg.locker %}
+                <li>
+                  <i class="bx bx-check"></i> Extra locker shelf
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Extra locker shelf</span>
+                  {% endif %}
+                </li>
+                <li>
+              </ul>
+              <button id="{{pkg.pkg_id}}" onclick="fillpkg(this.id)">Select</button>
             </div>
-            {% endfor %}
+          </div>
+          {% endfor %}
         </div>
         <div class="row" id="trainer-list" style="display: none;">
-            {% for trainer in trainers %}
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{ trainer.name }}</h5>
-                  <ul>
-                    <li>Phone Number: {{ trainer.phone_number }}</li>
-                    <li>Email: {{ trainer.email }}</li>
-                    <li>Experience: {{ trainer.experience }}</li>
-                  </ul>
-                  <button id="{{trainer.id}}" onclick="filltrainer(this.id)">Select</button>
-                </div>
+          {% for trainer in trainers %}
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ trainer.name }}</h5>
+                <ul>
+                  <li>Phone Number: {{ trainer.phone_number }}</li>
+                  <li>Email: {{ trainer.email }}</li>
+                  <li>Experience: {{ trainer.experience }}</li>
+                </ul>
+                <button id="{{trainer.id}}" onclick="filltrainer(this.id)">Select</button>
               </div>
             </div>
-            {% endfor %}
+          </div>
+          {% endfor %}
         </div>
       </div>
 

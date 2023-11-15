@@ -1,75 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>BulkBois - For the GymBros</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <!-- Favicons -->
-    <link href="/static/img/favicon.png" rel="icon" />
-    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon" />
+  <title>BulkBois - For the GymBros</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
 
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
+  <!-- Favicons -->
+  <link href="/static/img/favicon.png" rel="icon" />
+  <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-    <!-- Vendor CSS Files -->
-    <link href="/static/vendor/aos/aos.css" rel="stylesheet" />
-    <link
-      href="/static/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link
-      href="/static/vendor/boxicons/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="/static/vendor/glightbox/css/glightbox.min.css"
-      rel="stylesheet"
-    />
-    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet" />
-    <link
-      href="/static/vendor/swiper/swiper-bundle.min.css"
-      rel="stylesheet"
-    />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
 
-    <!-- Template Main CSS File -->
-    <link href="/static/css/style.css" rel="stylesheet" />
+  <!-- Vendor CSS Files -->
+  <link href="/static/vendor/aos/aos.css" rel="stylesheet" />
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="/static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet" />
+  <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
-    <!-- =======================================================
+  <!-- Template Main CSS File -->
+  <link href="/static/css/style.css" rel="stylesheet" />
+
+  <!-- =======================================================
   * Template Name: Arsha
   * Updated: Aug 30 2023 with Bootstrap v5.3.1
   * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  </head>
+</head>
 
-  <body
-  
-  >
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
-      <div class="container d-flex align-items-center">
-        <h1 class="logo me-auto"><a href="index.html">BulkBois</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="index.html">BulkBois</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-        <nav id="navbar" class="navbar">
-          <ul>
-            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-            <li><a class="nav-link scrollto" href="#about">About</a></li>
-            <li><a class="nav-link scrollto" href="#packages">Packages</a></li>
-            <!-- <li class="dropdown">
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="#packages">Packages</a></li>
+          <!-- <li class="dropdown">
               <a href="#"
                 ><span>Drop Down</span> <i class="bi bi-chevron-down"></i
               ></a>
@@ -92,182 +75,158 @@
                 <li><a href="#">Drop Down 3</a></li>
                 <li><a href="#">Drop Down 4</a></li>
               </ul> -->
-            </li>
-            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-            {% if not member %}
-            <li>
-              <a class="getstarted scrollto" href="{{url_for('login')}}">Login</a>
-            </li>
-            {% else %}
-            <li>
-              <a class="getstarted scrollto" href="{{url_for('dashboard')}}">Dashboard</a>
-            </li>
-            {% endif %}
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          {% if not member %}
+          <li>
+            <a class="getstarted scrollto" href="{{url_for('login')}}">Login</a>
+          </li>
+          {% else %}
+          <li>
+            <a class="getstarted scrollto" href="{{url_for('dashboard')}}">Dashboard</a>
+          </li>
+          {% endif %}
 
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-        <!-- .navbar -->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center background-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+          data-aos="fade-up" data-aos-delay="200">
+          <h1>Unleash Your Inner Beast</h1>
+          <h2>
+            Are you ready to transform your body and life? Look no further! Join us today, and get your dream body.
+          </h2>
+          <div class="d-flex justify-content-center justify-content-lg-start">
+            <a href="#about" class="btn-get-started scrollto">Learn about us</a>
+          </div>
+        </div>
       </div>
-    </header>
-    <!-- End Header -->
+    </div>
+  </section>
+  <!-- End Hero -->
 
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center background-section">
-      <div class="container">
-        <div class="row">
-          <div
-            class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <h1>Unleash Your Inner Beast</h1>
-            <h2>
-              Are you ready to transform your body and life? Look no further! Join us today, and get your dream body.
-            </h2>
-            <div class="d-flex justify-content-center justify-content-lg-start">
-              <a href="#about" class="btn-get-started scrollto">Learn about us</a>
-            </div>
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <p class="text-light">
+              At BulkBois Gym, we're more than just a fitness center; we're a community
+              of dedicated individuals on a shared mission to empower you to achieve your health and fitness goals.
+              Our story is one of passion, commitment, and transformation.
+            </p>
+            <ul class="text-light">
+              <li>
+                <i class="ri-check-double-line"></i> Experienced Team
+              </li>
+              <li>
+                <i class="ri-check-double-line"></i> State-of-the-Art Facilities
+              </li>
+              <li>
+                <i class="ri-check-double-line"></i> Variety of Programs
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p class="text-light">
+              We are committed to creating a positive and motivating environment where you can thrive.
+              We celebrate your victories, no matter how small, and support you through every challenge.
+              Your success is our success.
+              At BulkBois, you're not just a member; you're part of a community that celebrates health and wellness.
+              Join us today and embark on a journey towards a healthier and stronger you.
+            </p>
           </div>
         </div>
       </div>
     </section>
-    <!-- End Hero -->
+    <!-- End About Us Section -->
 
-    <main id="main">
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us section-bg">
+      <div class="container-fluid" data-aos="fade-up">
+        <div class="row">
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch order-2 order-lg-1">
+            <div class="content">
+              <h3>
+                Why Us
+              </h3>
+              <p>
 
-      <!-- ======= About Us Section ======= -->
-      <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>About Us</h2>
-          </div>
-
-          <div class="row content">
-            <div class="col-lg-6">
-              <p class="text-light">
-                At BulkBois Gym, we're more than just a fitness center; we're a community 
-                of dedicated individuals on a shared mission to empower you to achieve your health and fitness goals. 
-                Our story is one of passion, commitment, and transformation.
               </p>
-              <ul class="text-light">
+            </div>
+
+            <div class="accordion-list">
+              <ul>
                 <li>
-                  <i class="ri-check-double-line"></i> Experienced Team
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> High
+                    Quality Service <i class="bx bx-chevron-down icon-show"></i><i
+                      class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                    <p>
+                      A high-quality gym offers state-of-the-art equipment, a variety of fitness classes, and
+                      experienced trainers to help you reach your fitness goals. It provides a clean, well-maintained
+                      environment, motivating atmosphere, and personalized support, making every workout experience
+                      exceptional.
+                    </p>
+                  </div>
                 </li>
+
                 <li>
-                  <i class="ri-check-double-line"></i> State-of-the-Art Facilities
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span>
+                    State-of-the-Art Infrastructure <i class="bx bx-chevron-down icon-show"></i><i
+                      class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      Our gym boasts state-of-the-art infrastructure, featuring a comprehensive range of modern fitness
+                      equipment and amenities, ensuring a premium exercise experience for our members. From advanced
+                      cardio machines to luxurious locker rooms, our top-tier facilities are designed to elevate your
+                      fitness journey.
+                    </p>
+                  </div>
                 </li>
+
                 <li>
-                  <i class="ri-check-double-line"></i> Variety of Programs
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span>
+                    Extras <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      Our gym offers additional services that enhance your experience, including spacious locker rooms
+                      with secure storage, convenient on-site parking, a suana, and even a dedicated play area for
+                      children, ensuring that your fitness routine is convenient and family-friendly.
+                    </p>
+                  </div>
                 </li>
               </ul>
             </div>
-            <div class="col-lg-6 pt-4 pt-lg-0">
-              <p class="text-light">
-                We are committed to creating a positive and motivating environment where you can thrive. 
-                We celebrate your victories, no matter how small, and support you through every challenge. 
-                Your success is our success.
-                At BulkBois, you're not just a member; you're part of a community that celebrates health and wellness. 
-                Join us today and embark on a journey towards a healthier and stronger you.
-              </p>
-            </div>
+          </div>
+
+          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
+            style="background-image: url('/static/img/chase-kinney-FMQBLyhD2HU-unsplash.jpg')" data-aos="zoom-in"
+            data-aos-delay="150">
+            &nbsp;
           </div>
         </div>
-      </section>
-      <!-- End About Us Section -->
+      </div>
+    </section>
+    <!-- End Why Us Section -->
 
-      <!-- ======= Why Us Section ======= -->
-      <section id="why-us" class="why-us section-bg">
-        <div class="container-fluid" data-aos="fade-up">
-          <div class="row">
-            <div
-              class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch order-2 order-lg-1">
-              <div class="content">
-                <h3>
-                  Why Us
-                </h3>
-                <p>
-                  
-                </p>
-              </div>
-
-              <div class="accordion-list">
-                <ul>
-                  <li>
-                    <a
-                      data-bs-toggle="collapse"
-                      class="collapse"
-                      data-bs-target="#accordion-list-1"
-                      ><span>01</span> High Quality Service <i class="bx bx-chevron-down icon-show"></i
-                      ><i class="bx bx-chevron-up icon-close"></i
-                    ></a>
-                    <div
-                      id="accordion-list-1"
-                      class="collapse show"
-                      data-bs-parent=".accordion-list"
-                    >
-                      <p>
-                        A high-quality gym offers state-of-the-art equipment, a variety of fitness classes, and experienced trainers to help you reach your fitness goals. It provides a clean, well-maintained environment, motivating atmosphere, and personalized support, making every workout experience exceptional.
-                      </p>
-                    </div>
-                  </li>
-
-                  <li>
-                    <a
-                      data-bs-toggle="collapse"
-                      data-bs-target="#accordion-list-2"
-                      class="collapsed"
-                      ><span>02</span> State-of-the-Art Infrastructure <i class="bx bx-chevron-down icon-show"></i
-                      ><i class="bx bx-chevron-up icon-close"></i
-                    ></a>
-                    <div
-                      id="accordion-list-2"
-                      class="collapse"
-                      data-bs-parent=".accordion-list"
-                    >
-                      <p>
-                        Our gym boasts state-of-the-art infrastructure, featuring a comprehensive range of modern fitness equipment and amenities, ensuring a premium exercise experience for our members. From advanced cardio machines to luxurious locker rooms, our top-tier facilities are designed to elevate your fitness journey.
-                      </p>
-                    </div>
-                  </li>
-
-                  <li>
-                    <a
-                      data-bs-toggle="collapse"
-                      data-bs-target="#accordion-list-3"
-                      class="collapsed"
-                      ><span>03</span> Extras <i class="bx bx-chevron-down icon-show"></i
-                      ><i class="bx bx-chevron-up icon-close"></i
-                    ></a>
-                    <div
-                      id="accordion-list-3"
-                      class="collapse"
-                      data-bs-parent=".accordion-list"
-                    >
-                      <p>
-                        Our gym offers additional services that enhance your experience, including spacious locker rooms with secure storage, convenient on-site parking, a suana, and even a dedicated play area for children, ensuring that your fitness routine is convenient and family-friendly.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div
-              class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
-              style="background-image: url('/static/img/chase-kinney-FMQBLyhD2HU-unsplash.jpg')"
-              data-aos="zoom-in"
-              data-aos-delay="150"
-            >
-              &nbsp;
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Why Us Section -->
-
-      <!-- ======= Skills Section ======= -->
-      <!--<section id="skills" class="skills">
+    <!-- ======= Skills Section ======= -->
+    <!--<section id="skills" class="skills">
         <div class="container" data-aos="fade-up">
           <div class="row">
             <div
@@ -347,368 +306,225 @@
           </div>
         </div>
       </section>-->
-      <!-- End Skills Section -->
+    <!-- End Skills Section -->
 
-      <!-- ======= Services Section ======= -->
-      <section id="packages" class="services section-bg">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>Services</h2>
-          </div>
-
-          <div class="row">
-            <div
-              class="col-xl-3 col-md-6 d-flex align-items-stretch"
-              data-aos="zoom-in"
-              data-aos-delay="100"
-            >
-              <div class="icon-box">
-                <div class="icon"><!--<i class="bi bi-thermometer-half">--></i></div>
-                <h4><a href="">Sauna</a></h4>
-                <p>
-                  We provide a rejuvenating sauna facility for our members to relax and unwind after their workouts, promoting both physical and mental well-being.
-                </p>
-              </div>
-            </div>
-
-            <div
-              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0"
-              data-aos="zoom-in"
-              data-aos-delay="200"
-            >
-              <div class="icon-box">
-                <div class="icon"><!--<i class="bi bi-dribbble">--></i></div>
-                <h4><a href="">Private Training</a></h4>
-                <p>
-                  For a more personalized fitness journey, we offer private training sessions with experienced coaches who tailor workouts to your specific goals and needs, ensuring a focused and effective path to success.
-                </p>
-              </div>
-            </div>
-
-            <div
-              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
-              data-aos="zoom-in"
-              data-aos-delay="300"
-            >
-              <div class="icon-box">
-                <div class="icon"><!--<i class="bi bi-brilliance">--></i></div>
-                <h4><a href="">Physical Therapy</a></h4>
-                <p>
-                  Moreover, our gym provides access to on-site physical therapy services, where licensed professionals can assist in injury recovery and overall physical well-being, ensuring that your fitness journey is safe and supported.
-                </p>
-              </div>
-            </div>
-
-            <div
-              class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0"
-              data-aos="zoom-in"
-              data-aos-delay="400"
-            >
-              <div class="icon-box">
-                <div class="icon"><!--<i class="bi bi-cake2">--></i></div>
-                <h4><a href=""></a>Smoothie Bar</a></h4>
-                <p>
-                  For a refreshing post-workout treat, we have a dedicated smoothie bar where you can indulge in a variety of nutritious and delicious smoothie options to replenish your energy and stay healthy.
-                </p>
-              </div>
-            </div>
-          </div>
+    <!-- ======= Services Section ======= -->
+    <section id="packages" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Services</h2>
         </div>
-      </section>
-      <!-- End Services Section -->
 
-      <!-- ======= Cta Section ======= -->
-      <section id="cta" class="cta">
-        <div class="container" data-aos="zoom-in">
-          <div class="row">
-            <div class="col-lg-9 text-center text-lg-start">
-              <h3></h3>
+        <div class="row">
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><!--<i class="bi bi-thermometer-half">--></i></div>
+              <h4><a href="">Sauna</a></h4>
               <p>
+                We provide a rejuvenating sauna facility for our members to relax and unwind after their workouts,
+                promoting both physical and mental well-being.
               </p>
             </div>
-            <!--<div class="col-lg-3 cta-btn-container text-center">
-              <a class="cta-btn align-middle" href="#"></a>
-            </div>-->
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
+            data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><!--<i class="bi bi-dribbble">--></i></div>
+              <h4><a href="">Private Training</a></h4>
+              <p>
+                For a more personalized fitness journey, we offer private training sessions with experienced coaches who
+                tailor workouts to your specific goals and needs, ensuring a focused and effective path to success.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in"
+            data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><!--<i class="bi bi-brilliance">--></i></div>
+              <h4><a href="">Physical Therapy</a></h4>
+              <p>
+                Moreover, our gym provides access to on-site physical therapy services, where licensed professionals can
+                assist in injury recovery and overall physical well-being, ensuring that your fitness journey is safe
+                and supported.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in"
+            data-aos-delay="400">
+            <div class="icon-box">
+              <div class="icon"><!--<i class="bi bi-cake2">--></i></div>
+              <h4><a href=""></a>Smoothie Bar</a></h4>
+              <p>
+                For a refreshing post-workout treat, we have a dedicated smoothie bar where you can indulge in a variety
+                of nutritious and delicious smoothie options to replenish your energy and stay healthy.
+              </p>
+            </div>
           </div>
         </div>
-      </section>
-      <!-- End Cta Section -->
+      </div>
+    </section>
+    <!-- End Services Section -->
 
-      <!-- ======= Portfolio Section ======= -->
-      <section id="portfolio" class="portfolio">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>Portfolio</h2>
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container" data-aos="zoom-in">
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-start">
+            <h3></h3>
             <p>
             </p>
           </div>
+          <!--<div class="col-lg-3 cta-btn-container text-center">
+              <a class="cta-btn align-middle" href="#"></a>
+            </div>-->
+        </div>
+      </div>
+    </section>
+    <!-- End Cta Section -->
 
-          <ul
-            id="portfolio-flters"
-            class="d-flex justify-content-center"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-card">Card</li>
-            <li data-filter=".filter-web">Web</li>
-          </ul>
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Portfolio</h2>
+          <p>
+          </p>
+        </div>
 
-          <div
-            class="row portfolio-container"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-1.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
-                <a
-                  href="/static/img/portfolio/portfolio-1.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="App 1"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+        <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+          <li data-filter="*" class="filter-active">All</li>
+          <li data-filter=".filter-app">App</li>
+          <li data-filter=".filter-card">Card</li>
+          <li data-filter=".filter-web">Web</li>
+        </ul>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="" />
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-2.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <a
-                  href="/static/img/portfolio/portfolio-2.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="Web 3"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+            <div class="portfolio-info">
+              <h4>App 1</h4>
+              <p>App</p>
+              <a href="/static/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
+          </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-3.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-                <a
-                  href="/static/img/portfolio/portfolio-3.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="App 2"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="" />
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-4.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-                <a
-                  href="/static/img/portfolio/portfolio-4.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="Card 2"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Web</p>
+              <a href="/static/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
+          </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-5.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-                <a
-                  href="/static/img/portfolio/portfolio-5.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="Web 2"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="" />
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-6.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-                <a
-                  href="/static/img/portfolio/portfolio-6.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="App 3"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+            <div class="portfolio-info">
+              <h4>App 2</h4>
+              <p>App</p>
+              <a href="/static/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
+          </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-7.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-                <a
-                  href="/static/img/portfolio/portfolio-7.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="Card 1"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="" />
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-8.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-                <a
-                  href="/static/img/portfolio/portfolio-8.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="Card 3"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+            <div class="portfolio-info">
+              <h4>Card 2</h4>
+              <p>Card</p>
+              <a href="/static/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
+          </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-img">
-                <img
-                  src="/static/img/portfolio/portfolio-9.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <a
-                  href="/static/img/portfolio/portfolio-9.jpg"
-                  data-gallery="portfolioGallery"
-                  class="portfolio-lightbox preview-link"
-                  title="Web 3"
-                  ><i class="bx bx-plus"></i
-                ></a>
-                <a
-                  href="portfolio-details.html"
-                  class="details-link"
-                  title="More Details"
-                  ><i class="bx bx-link"></i
-                ></a>
-              </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="" />
+            </div>
+            <div class="portfolio-info">
+              <h4>Web 2</h4>
+              <p>Web</p>
+              <a href="/static/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="" />
+            </div>
+            <div class="portfolio-info">
+              <h4>App 3</h4>
+              <p>App</p>
+              <a href="/static/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="" />
+            </div>
+            <div class="portfolio-info">
+              <h4>Card 1</h4>
+              <p>Card</p>
+              <a href="/static/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="" />
+            </div>
+            <div class="portfolio-info">
+              <h4>Card 3</h4>
+              <p>Card</p>
+              <a href="/static/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img">
+              <img src="/static/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="" />
+            </div>
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Web</p>
+              <a href="/static/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery"
+                class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
           </div>
         </div>
-      </section>
-      <!-- End Portfolio Section -->
+      </div>
+    </section>
+    <!-- End Portfolio Section -->
 
-      <!-- ======= Team Section ======= -->
-      <!--<section id="team" class="team section-bg">
+    <!-- ======= Team Section ======= -->
+    <!--<section id="team" class="team section-bg">
         <div class="container" data-aos="fade-up">
           <div class="section-title">
             <h2>Team</h2>
@@ -829,177 +645,136 @@
           </div>
         </div>
       </section>-->
-      <!-- End Team Section -->
+    <!-- End Team Section -->
 
-      <!-- ======= Pricing Section ======= -->
-      <section id="pricing" class="pricing">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>Pricing</h2>
-            <p>
-            </p>
-          </div>
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pricing</h2>
+          <p>
+          </p>
+        </div>
 
-          <div class="row">
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <div class="box">
-                <h3>1-Month Plan</h3>
-                <h4><sup>Rs</sup>1000<span>per month</span></h4>
-                <ul>
+        <div class="row">
+          {% for pkg in packages %}
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+              <h3>{{pkg.name}}</h3>
+              <h4><sup>Rs</sup>{{pkg.price}}<span>per month</span></h4>
+              <ul>
+                {% if pkg.lounge %}
+                <li>
+                  <i class="bx bx-check"></i> Lounge access
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Lounge access</span>
+                  {% endif %}
+                </li>
+
+                {% if pkg.coach %}
+                <li>
+                  <i class="bx bx-check"></i> Dedicated fitness coach
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Dedicated fitness coach</span>
+                  {% endif %}
+                </li>
+                <li>
+
+                  {% if pkg.sauna %}
+                <li>
+                  <i class="bx bx-check"></i> Sauna access
+                  {% else %}
+                <li class="na">
+                  <i class="bx bx-x"></i>
+                  <span>Sauna access</span>
+                  {% endif %}
+                </li>
+                <li>
+
+                  {% if pkg.sauna %}
                   <li>
-                    <i class="bx bx-check"></i> Lounge access
-                  </li>
-                  <li><i class="bx bx-check"></i> Dedicated fitness coach</li>
-                  <li>
-                    <i class="bx bx-check"></i> Sauna access
-                  </li>
+                    <i class="bx bx-check"></i> Smoothie Bar access
+                    {% else %}
                   <li class="na">
                     <i class="bx bx-x"></i>
                     <span>Smoothie Bar access</span>
+                    {% endif %}
                   </li>
-                  <li class="na">
-                    <i class="bx bx-x"></i>
-                    <span>Extra locker shelf</span>
-                  </li>
-                </ul>
-                <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
-              </div>
-            </div>
+                  <li>
 
-            <div
-              class="col-lg-4 mt-4 mt-lg-0"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div class="box featured">
-                <h3>3-Month Plan</h3>
-                <h4><sup>Rs</sup>800<span>per month</span></h4>
-                <ul>
-                  <li>
-                    <i class="bx bx-check"></i> Lounge access
-                  </li>
-                  <li><i class="bx bx-check"></i> Dedicated fitness coach</li>
-                  <li>
-                    <i class="bx bx-check"></i> Sauna access
-                  </li>
-                  <li>
-                    <i class="bx bx-check"></i> Smoothie Bar access
-                  </li>
-                  <li>
-                    <i class="bx bx-check"></i> Extra locker shelf
-                  </li>
-                </ul>
-                <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
-              </div>
-            </div>
-
-            <div
-              class="col-lg-4 mt-4 mt-lg-0"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div class="box">
-                <h3>Developer Plan</h3>
-                <h4><sup>Rs</sup>700<span>per month</span></h4>
-                <ul>
-                  <li>
-                    <i class="bx bx-check"></i> Lounge access
-                  </li>
-                  <li><i class="bx bx-check"></i> Dedicated fitness coach</li>
-                  <li>
-                    <i class="bx bx-check"></i> Sauna access
-                  </li>
-                  <li>
-                    <i class="bx bx-check"></i> Smoothie Bar access
-                  </li>
-                  <li>
-                    <i class="bx bx-check"></i> Extra locker shelf
-                  </li>
-                </ul>
-                <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
-              </div>
+                    {% if pkg.sauna %}
+                    <li>Extra locker shelf
+                      {% else %}
+                    <li class="na">
+                      <i class="bx bx-x"></i>
+                      <span>Extra locker shelf</span>
+                      {% endif %}
+                    </li>
+                    <li>
+              </ul>
+              <a href="{{url_for('dashboard')}}" class="buy-btn">Get Started</a>
             </div>
           </div>
+          {% endfor %}
+
         </div>
-      </section>
-      <!-- End Pricing Section -->
+      </div>
+    </section>
+    <!-- End Pricing Section -->
 
-      <!-- ======= Frequently Asked Questions Section ======= -->
-      <section id="faq" class="faq section-bg">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>Frequently Asked Questions</h2>
-            <p>
-              Here are answers to some of the FAQs
-            </p>
-          </div>
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+          <p>
+            Here are answers to some of the FAQs
+          </p>
+        </div>
 
-          <div class="faq-list">
-            <ul>
-              <li data-aos="fade-up" data-aos-delay="100">
-                <i class="bx bx-help-circle icon-help"></i>
-                <a
-                  data-bs-toggle="collapse"
-                  class="collapse"
-                  data-bs-target="#faq-list-1"
-                  >Gym timings?
-                  <i class="bx bx-chevron-down icon-show"></i
-                  ><i class="bx bx-chevron-up icon-close"></i
-                ></a>
-                <div
-                  id="faq-list-1"
-                  class="collapse show"
-                  data-bs-parent=".faq-list"
-                >
-                  <p>
-                    BulkBois will be open 5:00am-10:00pm on weekdays and 6:00am-12:00pm on weekends
-                  </p>
-                </div>
-              </li>
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i>
+              <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Gym timings?
+                <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                <p>
+                  BulkBois will be open 5:00am-10:00pm on weekdays and 6:00am-12:00pm on weekends
+                </p>
+              </div>
+            </li>
 
-              <li data-aos="fade-up" data-aos-delay="200">
-                <i class="bx bx-help-circle icon-help"></i>
-                <a
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq-list-2"
-                  class="collapsed"
-                  >Are personal training sessions offered?
-                  <i class="bx bx-chevron-down icon-show"></i
-                  ><i class="bx bx-chevron-up icon-close"></i
-                ></a>
-                <div
-                  id="faq-list-2"
-                  class="collapse"
-                  data-bs-parent=".faq-list"
-                >
-                  <p>
-                    Yes, we have certified personal trainers who can train you personally and help you achieve your ideal physique.
-                  </p>
-                </div>
-              </li>
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i>
+              <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Are personal training sessions
+                offered?
+                <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Yes, we have certified personal trainers who can train you personally and help you achieve your ideal
+                  physique.
+                </p>
+              </div>
+            </li>
 
-              <li data-aos="fade-up" data-aos-delay="300">
-                <i class="bx bx-help-circle icon-help"></i>
-                <a
-                  data-bs-toggle="collapse"
-                  data-bs-target="#faq-list-3"
-                  class="collapsed"
-                  >Are parking facilities available in the gym??
-                  <i class="bx bx-chevron-down icon-show"></i
-                  ><i class="bx bx-chevron-up icon-close"></i
-                ></a>
-                <div
-                  id="faq-list-3"
-                  class="collapse"
-                  data-bs-parent=".faq-list"
-                >
-                  <p>
-                    Yes, we have a 2-story parking facility which can accomodate atleast 350 vehicles.
-                  </p>
-                </div>
-              </li>
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i>
+              <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">Are parking facilities
+                available in the gym??
+                <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Yes, we have a 2-story parking facility which can accomodate atleast 350 vehicles.
+                </p>
+              </div>
+            </li>
 
-              <!--<li data-aos="fade-up" data-aos-delay="400">
+            <!--<li data-aos="fade-up" data-aos-delay="400">
                 <i class="bx bx-help-circle icon-help"></i>
                 <a
                   data-bs-toggle="collapse"
@@ -1048,122 +823,91 @@
                   </p>
                 </div>
               </li>-->
-            </ul>
-          </div>
+          </ul>
         </div>
-      </section>
-      <!-- End Frequently Asked Questions Section -->
+      </div>
+    </section>
+    <!-- End Frequently Asked Questions Section -->
 
-      <!-- ======= Contact Section ======= -->
-      <section id="contact" class="contact">
-        <div class="container" data-aos="fade-up">
-          <div class="section-title">
-            <h2>Contact</h2>
-            <p>
-              Here are our contact details
-            </p>
-          </div>
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>
+            Here are our contact details
+          </p>
+        </div>
 
-          <div class="row">
-            <div class="col-lg-5 d-flex align-items-stretch">
-              <div class="info">
-                <div class="address">
-                  <i class="bi bi-geo-alt"></i>
-                  <h4>Location:</h4>
-                  <p>No.7, Dubai kuruku sandhu, Dubai bus stand, Dubai - 420</p>
-                </div>
-
-                <div class="email">
-                  <i class="bi bi-envelope"></i>
-                  <h4>Email:</h4>
-                  <p>body@soda.com</p>
-                </div>
-
-                <div class="phone">
-                  <i class="bi bi-phone"></i>
-                  <h4>Call:</h4>
-                  <p>+91 5287836866</p>
-                </div>
-
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
-                  frameborder="0"
-                  style="border: 0; width: 100%; height: 290px"
-                  allowfullscreen
-                ></iframe>
+        <div class="row">
+          <div class="col-lg-5 d-flex align-items-stretch">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>No.7, Dubai kuruku sandhu, Dubai bus stand, Dubai - 420</p>
               </div>
-            </div>
 
-            <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-              <form
-                action="forms/contact.php"
-                method="post"
-                role="form"
-                class="php-email-form"
-              >
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label for="name">Your Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      class="form-control"
-                      id="name"
-                      required
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="name">Your Email</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      name="email"
-                      id="email"
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="name">Subject</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="subject"
-                    id="subject"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="name">Message</label>
-                  <textarea
-                    class="form-control"
-                    name="message"
-                    rows="10"
-                    required
-                  ></textarea>
-                </div>
-                <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">
-                    Your message has been sent. Thank you!
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="submit">Send Message</button>
-                </div>
-              </form>
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>body@soda.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+91 5287836866</p>
+              </div>
+
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
+                frameborder="0" style="border: 0; width: 100%; height: 290px" allowfullscreen></iframe>
             </div>
           </div>
-        </div>
-      </section>
-      <!-- End Contact Section -->
-    </main>
-    <!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-      <!--<div class="footer-newsletter">
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" class="form-control" id="name" required />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" required />
+              </div>
+              <div class="form-group">
+                <label for="name">Message</label>
+                <textarea class="form-control" name="message" rows="10" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">
+                  Your message has been sent. Thank you!
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Contact Section -->
+  </main>
+  <!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <!--<div class="footer-newsletter">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -1179,10 +923,10 @@
         </div>
       </div>-->
 
-      <div class="footer-top">
-        <div class="container">
-          <div class="row">
-            <!--<div class="col-lg-3 col-md-6 footer-contact">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <!--<div class="col-lg-3 col-md-6 footer-contact">
               <h3>Arsha</h3>
               <p>
                 A108 Adam Street <br />
@@ -1193,30 +937,30 @@
               </p>
             </div>-->
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">Home</a>
-                </li>
-                <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">About us</a>
-                </li>
-                <li>
-                  <i class="bx bx-chevron-right"></i> <a href="#">Services</a>
-                </li>
-                <li>
-                  <i class="bx bx-chevron-right"></i>
-                  <a href="#">Terms of service</a>
-                </li>
-                <li>
-                  <i class="bx bx-chevron-right"></i>
-                  <a href="#">Privacy policy</a>
-                </li>
-              </ul>
-            </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">Home</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">About us</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">Services</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="#">Terms of service</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="#">Privacy policy</a>
+              </li>
+            </ul>
+          </div>
 
-            <!--<div class="col-lg-3 col-md-6 footer-links">
+          <!--<div class="col-lg-3 col-md-6 footer-links">
               <h4>Our Services</h4>
               <ul>
                 <li>
@@ -1240,7 +984,7 @@
               </ul>
             </div>-->
 
-            <!--<div class="col-lg-3 col-md-6 footer-links">
+          <!--<div class="col-lg-3 col-md-6 footer-links">
               <h4>Our Social Networks</h4>
               <p>
                 Cras fermentum odio eu feugiat lide par naso tierra videa magna
@@ -1255,12 +999,12 @@
                 <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
                 <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
               </div>-->
-            </div>
-          </div>
         </div>
       </div>
+    </div>
+    </div>
 
-      <!--<div class="container footer-bottom clearfix">
+    <!--<div class="container footer-bottom clearfix">
         <div class="copyright">
           &copy; Copyright <strong><span>Arsha</span></strong
           >. All Rights Reserved
@@ -1273,26 +1017,24 @@
           Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
       </div>-->
-    </footer>
-    <!-- End Footer -->
+  </footer>
+  <!-- End Footer -->
 
-    <div id="preloader"></div>
-    <a
-      href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
-    <script src="/static/vendor/aos/aos.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="/static/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="/static/vendor/php-email-form/validate.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="/static/vendor/aos/aos.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/static/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
-    <script src="/static/js/main.js"></script>
-  </body>
+  <!-- Template Main JS File -->
+  <script src="/static/js/main.js"></script>
+</body>
+
 </html>
