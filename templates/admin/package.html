@@ -16,7 +16,6 @@
             <th>ID</th>
             <th>Name</th>
             <th>Duration</th>
-            <th>Description</th>
             <th>Price</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -28,7 +27,6 @@
             <td id="pkgid">{{ pkg.pkg_id }}</td>
             <td>{{ pkg.name }}</td>
             <td>{{ pkg.duration }}</td>
-            <td>{{ pkg.description }}</td>
             <td>{{ pkg.price }}</td>
 
             <td><button id="{{pkg.pkg_id}}" onclick="editpkg(this.id)">Edit</button></td>
