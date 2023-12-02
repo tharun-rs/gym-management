@@ -1,23 +1,5 @@
 # Gym Management System
 
-## Webpage routings:
-### User routes:
-/  
-/register  
-/login  
-/dashboard  
-/logout  
-### Trainer routes:
-/trainer/login
-/trainer/dashboard
-/trainer/logout
-### Admin routes:
-/temp  
-/admin/create_tables  
-/admin/create_admin  
-/admin/login  
-/admin/hire_trainer  
-/admin/logout
 
 ## Classes:
 ### Members:
